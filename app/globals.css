@@ -1,0 +1,47 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Saira Condensed', sans-serif;
+  background: var(--color-white);
+  color: var(--color-black);
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --color-white: #FAFAFA;
+  --color-black: #272727;
+  --color-aqua: #9CD4FF;
+  --color-aqua-hover: #B3E6FF; 
+  --color-blue: #0077C0;
+}
+
+*,
+*::before,
+*::after {
+  transition: all 0.2s ease-in-out;
+}
+
+a {
+  text-decoration: none;
+}
+
+html, body {
+  overflow-x: hidden;
+}
+
+.root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}

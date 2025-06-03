@@ -1,0 +1,249 @@
+.header {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  background-color: var(--color-aqua);
+  padding: 1.5rem 0;
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.1);
+  z-index: 1000;
+  font-family: 'Saira', sans-serif;
+}
+
+.headerContainer {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: clamp(80px, 10vh, 125px);
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+}
+
+.logoLink {
+  display: block;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  text-align: left;
+  transition: none;
+}
+
+.navLink {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-black);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .2s;
+  white-space: nowrap;
+  text-align: left;
+}
+.navLink:hover {
+  color: var(--color-blue);
+  transform: translateY(-2px);
+}
+
+.navDropdown {
+  position: relative;
+  flex: 0 0 auto;
+}
+.navDropdown > .navLink {
+  white-space: nowrap;
+}
+.dropdownMenu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: .5rem 0;
+  list-style: none;
+  z-index: 200;
+  white-space: nowrap;
+}
+.navDropdown:hover .dropdownMenu {
+  display: block;
+}
+.dropdownLink {
+  display: block;
+  padding: .5rem 1.25rem;
+  font-size: 16px;
+  color: var(--color-black);
+  text-decoration: none;
+  text-align: left;
+}
+.dropdownLink:hover {
+  background: var(--color-aqua-hover);
+}
+
+.phoneButton {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  font-family: 'Saira', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  transition: background-color 0.2s, transform 0.2s;
+  text-decoration: none;
+}
+.phoneButton svg {
+  width: 30px;
+  height: 30px;
+  fill: currentColor;
+}
+.phoneButton:hover {
+  background-color: var(--color-black);
+  transform: scale(1.05);
+}
+
+.phoneButton:hover {
+  background-color: var(--color-black);
+}
+
+.phoneButton::before {
+  content: url('/icons/phone.svg');
+  position: absolute;
+  left: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+}
+
+.phoneInNav {
+  display: none;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem 1rem;
+  font-size: 18px;
+  font-weight: 700;
+  white-space: nowrap;
+  text-align: left;
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+.burger span {
+  display: block;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: transform .3s, opacity .3s;
+}
+
+@media (max-width: 768px) {
+  .headerContainer {
+    position: relative;   
+    padding: 0 1rem;
+    height: auto;
+  }
+
+  .headerLeft {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .burger {
+    display: flex;
+  }
+  .nav,
+  .phoneButton {
+    display: none;
+  }
+
+  .nav.open {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;               
+    background: var(--color-aqua);
+    padding: 1rem 0;        
+    margin: 0;
+    z-index: 1500;
+    max-height: none;       
+    overflow: visible;      
+  }
+
+  .nav.open .navLink,
+  .nav.open .dropdownLink {
+    background: transparent;
+    color: #272727;
+    padding: 0 1rem;         
+    text-align: left;
+    width: auto !important;
+  }
+
+  .nav.open .phoneInNav {
+    display: none;
+  }
+
+  .nav.open .dropdownMenu {
+    position: static;
+    display: none;
+    background: transparent;
+    box-shadow: none;
+    padding-left: 1rem;
+    margin: 0;
+  }
+  .nav.open .navDropdown:hover .dropdownMenu,
+  .nav.open .navDropdown:focus-within .dropdownMenu {
+    display: block;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .nav {
+    flex-wrap: nowrap;       
+    gap: 1.5rem;              
+    justify-content: flex-start;
+  }
+  .navLink {
+    font-size: 20px;    
+  }
+  .phoneButton {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .headerContainer {
+    padding: 0.75rem 1rem;
+  }
+  .navLink {
+    font-size: 16px;
+  }
+  .phoneInNav {
+    font-size: 16px;
+    padding: 0.5rem 0.75rem;
+  }
+}

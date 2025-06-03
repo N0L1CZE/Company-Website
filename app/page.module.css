@@ -1,0 +1,796 @@
+.viewport {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* HERO */
+.hero {
+  background: var(--color-white);
+  padding: 2rem 0;
+}
+
+.heroWrapper {
+  display: flex;
+  flex-wrap: wrap;            
+  justify-content: center;    
+  align-items: flex-start;
+  gap: 2rem;                 
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.heroImage {
+  flex: 0 0 550px;
+  height: 367px;        
+  position: relative;     
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.heroTextBoxes {
+  display: flex;
+  flex-direction: column;
+  align-items: center;       
+  gap: 1rem;
+  width: 100%;
+  max-width: 550px;          
+}
+
+.heroBox {
+  background: var(--color-aqua);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;             
+}
+
+.heroBoxFirst {
+  min-height: 140px;
+}
+
+.heroTitle,
+.heroSubtitle,
+.heroCaption {
+  margin: 0;
+  text-align: left;
+}
+
+.heroBoxSecond {
+  flex: 0 0 auto;
+  width: 550px;
+  height: 192px;
+  margin-top: 16px; 
+}
+.heroSubtitle {
+  margin: 0 0 8px 0;
+  font-size: 24px;
+  font-weight: 600; 
+  color: var(--color-black);
+  line-height: 1.3;
+  font-family: 'Saira Condensed', sans-serif;
+}
+.heroCaption {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--color-black);
+  line-height: 1.4;
+  font-family: 'Saira Condensed', sans-serif;
+}
+
+.heroBox h1,
+.heroBox p {
+  margin: 0;
+  color: var(--color-black);
+  line-height: 1.3;
+  font-family: 'Saira Condensed', sans-serif;
+}
+
+.heroTextBox h1 {
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+.heroTextBox p {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headerLeft {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem; 
+}
+
+/* ===== 4) SERVICES ===== */
+.services {
+  position: relative;
+  left: 50%; right: 50%;
+  margin-left: -50vw; margin-right: -50vw;
+  width: 100vw;
+  
+  height: auto;
+  padding: 2rem 0;
+  
+  background: var(--color-blue);
+  display: flex;
+  align-items: center;
+}
+
+.servicesContainer {
+  width: 1120px; height: 221px;
+  margin: 0 auto;
+  background: var(--color-white);
+  border-radius: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  gap: 100px;                
+}
+
+.serviceItem {
+  flex: 0 0 130px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.serviceItem img:hover {
+  transform: scale(1.1);
+}
+
+.serviceCaption {
+  margin-top: 0.5rem;
+  font-size: 18px;
+  font-weight: 400; 
+  font-family: 'Saira Condensed', sans-serif;
+  color: var(--color-black);
+  width: 100%;      
+  text-align: center;
+  white-space: nowrap;
+
+}
+
+.serviceItem:hover {
+  transform: scale(1.05);
+}
+.serviceItem img {
+  transition: transform 0.2s ease-in-out;
+  outline: none;    
+  border: none;    
+}
+
+/* ===== ABOUT ===== */
+.aboutSection {
+  background: var(--color-white);
+  padding: 4rem 0;   
+}
+
+.aboutInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;  
+}
+
+.aboutTitle {
+  font-family: 'Saira Condensed', sans-serif;
+  font-weight: 700; 
+  font-size: 36px;
+  margin: 0 0 2rem;  
+}
+
+.aboutCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: stretch;  
+}
+
+.aboutCard {
+  flex: 1  360px;       
+  height: 500px;         
+  background: var(--color-blue);
+  color: var(--color-white);
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.cardHeading {
+  margin: 0 0 1rem;
+  font-family: 'Saira Condensed', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.cardText {
+  margin: 0;
+  font-family: 'Saira Condensed', sans-serif;
+  font-size: 20px;
+  line-height: 1.4;
+  flex-grow: 1; 
+}
+
+
+/* CTA */
+.ctaSection {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.ctaInner {
+  width: 955px;
+  height: 112px;
+  background: var(--color-black);
+  border-radius: 20px;
+  display: flex;
+  align-items: center; 
+  padding: 0 20px;
+}
+
+.ctaTitle {
+  width: 266px;
+  height: 45px;
+  margin: 0;
+  font-family: 'Saira Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 36px;
+  line-height: 45px;
+  color: var(--color-white);
+  white-space: nowrap;
+}
+
+.ctaButtons {
+  margin-left: auto;
+  display: flex;
+  align-items: center;   
+  gap: 20px;                
+}
+
+/* Kontakt */
+.ctaButtonContact {
+  width: 166px;     
+  height: 77px;   
+  background: var(--color-white);
+  color: var(--color-black);
+  border-radius: 20px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Saira Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.ctaPhoneButton {
+  width: 220px;
+  height: 60px;        
+  background: var(--color-blue);
+  color: var(--color-white);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;     
+  justify-content: center;
+  padding: 0 1rem;          
+  margin: 0;               
+  font-family: 'Saira Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 20px;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.ctaPhoneButton svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  margin-right: 0.5rem;
+}
+
+
+/* ===== PROJECTS ===== */
+.projectsSection {
+  padding: 4rem 0;
+  background: var(--color-white);
+}
+
+.projectsSection > .viewport {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.projectsBar {
+  position: relative;
+  left: 50%; right: 50%;
+  margin-left: -50vw; margin-right: -50vw;
+  width: 100vw;
+  background: var(--color-blue);
+  padding: 2rem 0;
+}
+
+.projectsBarInner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.projectList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;             
+  justify-content: center;
+  align-items: stretch;   
+}
+
+.projectCard {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 360px;      
+  background: var(--color-white);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.projectCard :global(.next-image-wrapper) {
+  flex-shrink: 0;
+}
+
+.projectCard img {
+  display: block;
+  width: 100%;            
+  height: auto;          
+  aspect-ratio: 360 / 375;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.projectCard:hover img {
+  transform: scale(1.05);
+}
+
+.projectCaption {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: var(--color-aqua); 
+  color: var(--color-black);       
+  font-family: 'Saira Condensed', sans-serif;
+  font-weight: 800;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 0 0 10px 10px;
+  white-space: nowrap;
+}
+
+
+.projectsTitle {
+  position: relative;
+  left: calc((100% - 1160px) / 2);
+  margin: 0 0 1.5rem;
+  width: 360px;
+  height: 67px;
+  background: var(--color-aqua);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Saira Condensed', sans-serif;
+  font-weight: 700;
+  font-size: 28px;
+  color: var(--color-black);
+}
+
+.moreWrapper {
+  position: relative;       
+  margin-top: 1.5rem;      
+}
+
+.moreButton {
+  position: relative;
+  left: calc((100% - 1160px) / 2); 
+
+  width: 265px;
+  height: 70px;
+
+  background: var(--color-blue) !important;
+  color: var(--color-white) !important;
+
+  border: none;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-family: 'Saira Condensed', sans-serif;
+  font-weight: 600;
+  font-size: 24px;
+
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.moreButton:hover,
+.moreButton:focus {
+  background: var(--color-black) !important;
+  color: var(--color-white) !important;
+}
+
+
+.moreButton {
+  background: var(--color-white);
+  color: var(--color-blue);
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+/* ================ NAV LINKS ================ */
+.navLink:hover {
+  color: var(--color-blue);
+  transform: translateY(-2px);
+}
+
+/* ================ PHONE BUTTON ================ */
+.phoneButton:hover {
+  background: var(--color-black);
+  transform: translateY(-2px) scale(1.02);
+}
+
+/* ================ HERO BOXES ================ */
+.heroBox:hover {
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  transform: translateY(-4px);
+}
+
+/* ================ ABOUT CARDS ================ */
+.aboutCard:hover {
+  background: var(--color-white);
+  color: var(--color-black);
+  transform: translateY(-6px);
+}
+
+/* ================ CTA BUTTONS ================ */
+.ctaButtonContact:hover,
+.ctaPhoneButton:hover {
+  background: var(--color-white);
+  color: var(--color-black);
+  transform: translateY(-3px);
+}
+
+/* ================ PROJECT CARDS ================ */
+.projectCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+}
+.projectCard img {
+  transition: transform 0.3s ease;
+}
+.projectCard:hover img {
+  transform: scale(1.05);
+}
+
+/* ================ MORE BUTTON ================ */
+.moreButton:hover {
+  background: var(--color-blue);
+  color: var(--color-white);
+  transform: translateY(-3px);
+}
+
+.heroTitle {
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+}
+.heroSubtitle {
+  font-size: clamp(1.5rem, 4vw, 2rem);
+}
+.heroCaption {
+  font-size: clamp(1rem, 3vw, 1.25rem);
+}
+
+/* ======== RESPONSIVE ======== */
+
+@media (max-width: 640px) {
+  /* HEADER */
+  .headerContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 1rem;
+    height: auto;
+  }
+  .nav {
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 0.5rem;
+  }
+  .phoneButton {
+    width: 100%;
+    justify-content: center;
+    margin-top: 0.5rem;
+  }
+
+  /* HERO */
+    .heroWrapper {
+    gap: 0.5rem !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+  }
+
+  .heroImage {
+    flex: none !important;          
+    width: 100% !important;             
+    max-width: 550px;                 
+    height: auto !important;           
+  }
+
+  .heroImage > img {
+    height: auto !important;
+    width: 100% !important;
+    object-fit: cover;
+  }
+
+  .heroImage,
+  .heroBoxFirst,
+  .heroBoxSecond {
+    width: 100%;
+    height: auto;
+  }
+
+  .heroBoxFirst,
+  .heroBoxSecond {
+    margin-top: 0 !important;
+  }
+
+  /* SERVICES */
+  .servicesContainer {
+    flex-direction: column;
+    height: auto;
+    gap: 1.5rem;
+    padding: 2rem 1rem;
+    width: 90%;
+  }
+  .serviceItem {
+    width: 100%;
+  }
+   .services {
+    margin-top: 2rem;
+  }
+
+  /* ABOUT */
+  .aboutCards {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .aboutCard {
+    width: 90%;
+    height: auto;
+    padding: 1rem;
+  }
+
+  /* CTA */
+  .ctaInner {
+    flex-direction: column;
+    height: auto;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+  }
+  .ctaButtons {
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    margin-top: 1rem;
+  }
+  .ctaButtonContact,
+  .ctaPhoneButton {
+    width: 100%;
+  }
+
+  /* PROJECTS */
+  .projectList {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+  }
+  .projectCard,
+  .projectCard img {
+    width: 90%;
+    height: auto;
+  }
+  .projectsTitle,
+  .moreButton {
+    left: 0;
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* HEADER */
+  .headerContainer {
+    gap: 1.5rem;
+    padding: 1rem;
+  }
+  .nav {
+    gap: 1.5rem;
+  }
+
+  /* HERO */
+  @media (max-width: 640px) {
+  .hero {
+    padding: 0;
+  }
+}
+  
+  .heroWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 1rem;
+  }
+ .heroImage {
+    margin-bottom: 0 !important;
+  }
+  .heroBoxFirst,
+  .heroBoxSecond {
+    margin: 0 !important;
+  }
+
+  .heroImage,
+  .heroBoxFirst,
+  .heroBoxSecond {
+    width: 100%;
+    height: auto;
+  }
+  .heroTextBoxes {
+    margin-top: 0 !important;
+    gap: 0.5rem;
+  }
+
+  /* SERVICES */
+  .servicesContainer {
+    width: 90%;
+    gap: 2rem;
+    padding: 1.5rem;
+    height: auto;
+  }
+
+  /* ABOUT */
+  .aboutCards {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+  }
+  .aboutCard {
+    width: 320px;
+    height: auto;
+  }
+
+  /* CTA */
+
+  .ctaSection {
+    padding: 2rem 0;
+  }
+   .ctaInner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
+  }
+  .ctaButtons {
+    gap: 1rem;
+  }
+  .ctaTitle {
+    width: auto !important;
+    height: auto !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+    font-size: 1rem !important;
+    line-height: 1.2 !important;
+    text-align: center !important;
+    margin: 0 auto 0.75rem !important;
+    padding: 0 1rem !important;
+  }
+
+  .ctaButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 90%;
+    margin-top: 1rem;
+  }
+
+  /* PROJECTS */
+  .projectList {
+    justify-content: center;
+    gap: 2rem;
+  }
+  .projectCard,
+  .projectCard img {
+    width: 320px;
+    height: auto;
+  }
+  .projectsTitle,
+  .moreButton {
+    width: 100%;
+    left: 0;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 1024px) {
+  .projectList {
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 640px) {
+  .ctaInner {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem;
+    height: auto;
+    gap: 0.5rem;
+  }
+
+  .ctaTitle {
+    width: 100%;
+    font-size: 1.5rem;
+    line-height: 1.4;
+    white-space: normal;
+    text-align: center;
+    margin: 0 0 0.5rem;
+  }
+
+  .ctaButtons {
+    width: 100%;
+    justify-content: center;
+    margin: 0;
+    gap: 1rem;
+  }
+}
+@media only screen and (max-width: 640px) {
+  .projectsTitle {
+    position: relative !important;
+    left: 0 !important;                
+    width: 90% !important;             
+    max-width: none !important;        
+    height: auto !important;           
+    margin: 0 auto 1rem !important;    
+    padding: 0.75rem 1rem !important;  
+    box-sizing: border-box !important; 
+    white-space: normal !important;    
+    display: flex !important;          
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: left !important;
+  }
+}
