@@ -10,7 +10,7 @@ async function main() {
   const adminEmail    = process.env.ADMIN_EMAIL
   const plainPassword = process.env.ADMIN_PASSWORD_HASH
 
-  if (!adminEmail || !plainPassword) {
+  if (!adminEmail || !adminHash) {
     console.error('❌ ADMIN_EMAIL nebo ADMIN_PASSWORD není nastaveno v .env')
     process.exit(1)
   }
@@ -19,8 +19,8 @@ async function main() {
   // Upsert admina
   await prisma.user.upsert({
     where:  { email: adminEmail },
-    update: { passwordHash },
-    create: { email: adminEmail, passwordHash },
+    update: { adminHash },
+    create: { email: adminEmail, adminHash },
   })
   console.log(`✅ Admin seeded (email: ${adminEmail})`)
 
