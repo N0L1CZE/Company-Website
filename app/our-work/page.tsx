@@ -22,6 +22,24 @@ export default function OurWorkPage() {
       icon: '/icons/passport.svg',
       href: './our-work/Passport'
     },
+    {
+      title: 'Pasportizace objektů',
+      text: 'Provádíme pasportizaci objektů včetně detailní dokumentace stávajícího stavu. Zajistíme přesné zaměření, evidenci prvků a přehledné výstupy pro další využití.',
+      icon: '/icons/passport.svg',
+      href: './our-work/Passport'
+    },
+    {
+      title: 'Pasportizace objektů',
+      text: 'Provádíme pasportizaci objektů včetně detailní dokumentace stávajícího stavu. Zajistíme přesné zaměření, evidenci prvků a přehledné výstupy pro další využití.',
+      icon: '/icons/passport.svg',
+      href: './our-work/Passport'
+    },
+    {
+      title: 'Pasportizace objektů',
+      text: 'Provádíme pasportizaci objektů včetně detailní dokumentace stávajícího stavu. Zajistíme přesné zaměření, evidenci prvků a přehledné výstupy pro další využití.',
+      icon: '/icons/passport.svg',
+      href: './our-work/Passport'
+    },
   ]
 
   return (

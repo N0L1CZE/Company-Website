@@ -17,9 +17,9 @@ body {
 :root {
   --color-white: #FAFAFA;
   --color-black: #272727;
-  --color-aqua: #9CD4FF;
-  --color-aqua-hover: #B3E6FF; 
-  --color-blue: #0077C0;
+  --color-aqua: #8b8b8b;
+  --color-aqua-hover: #ffba00; 
+  --color-blue: #007084;
 }
 
 *,

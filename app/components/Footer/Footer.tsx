@@ -13,8 +13,6 @@ export function Footer() {
           copyright © 2025 Forhaus-UH
         </div>
         <nav className={styles.footerNav}>
-          <Link href="https://utb.cz" className={styles.footerLink}>FAI UTB</Link>
-          <span className={styles.separator}>|</span>
           <Link href="/auth/login" className={styles.footerLink}>Přihlásit se</Link>
         </nav>
       </div>
