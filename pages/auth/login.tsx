@@ -42,7 +42,7 @@ export default function LoginPage() {
 
     if (res.ok) {
       console.log('✅ login OK, přesměruji…')
-      router.push('/admin/references')
+      router.push('/admin')
     } else {
       console.log('❌ login selhal', data.error)
       setError(data.error || 'Přihlášení selhalo')
