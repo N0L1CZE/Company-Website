@@ -8,15 +8,13 @@ const prisma = new PrismaClient()
 async function main() {
   // 0) Admin uživatel – e-mail a heslo načtené z .env
   const adminEmail    = process.env.ADMIN_EMAIL
-  const plainPassword = process.env.ADMIN_PASSWORD
+  const plainPassword = process.env.ADMIN_PASSWORD_HASH
 
   if (!adminEmail || !plainPassword) {
     console.error('❌ ADMIN_EMAIL nebo ADMIN_PASSWORD není nastaveno v .env')
     process.exit(1)
   }
 
-  // Zahashujeme heslo
-  const passwordHash = await bcrypt.hash(plainPassword, 10)
 
   // Upsert admina
   await prisma.user.upsert({
