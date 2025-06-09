@@ -28,3 +28,9 @@ model Person {
   name       String      @unique
   references Reference[] @relation("ReferencePersons")
 }
+
+model ContactText {
+  id       String   @id @default(cuid())
+  key      String   @unique        // např. "contact.header", "contact.emailLabel"…
+  content  String
+}

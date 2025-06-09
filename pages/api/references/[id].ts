@@ -1,5 +1,6 @@
+// pages/api/references/[id].ts
 import type { NextApiRequest, NextApiResponse } from 'next'
-import formidable, { File as FormidableFile } from 'formidable'
+import formidable from 'formidable'
 import fs from 'fs'
 import path from 'path'
 import { prisma } from '@/lib/prisma'
@@ -9,12 +10,15 @@ export const config = { api: { bodyParser: false } }
 function parseForm(req: NextApiRequest) {
   const uploadDir = path.join(process.cwd(), 'public', 'uploads')
   fs.mkdirSync(uploadDir, { recursive: true })
+
   const form = formidable({ uploadDir, keepExtensions: true })
   return new Promise<{ fields: formidable.Fields; files: formidable.Files }>(
-    (resolve, reject) =>
-      form.parse(req, (err, fields, files) =>
-        err ? reject(err) : resolve({ fields, files })
-      )
+    (resolve, reject) => {
+      form.parse(req, (err, fields, files) => {
+        if (err) reject(err)
+        else resolve({ fields, files })
+      })
+    }
   )
 }
 
@@ -26,28 +30,37 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       const { fields, files } = await parseForm(req)
       const label = Array.isArray(fields.label) ? fields.label[0] : fields.label ?? ''
       const category = Array.isArray(fields.category) ? fields.category[0] : fields.category ?? ''
-      const uploaded = files.file as FormidableFile | FormidableFile[] | undefined
-      const file = Array.isArray(uploaded) ? uploaded[0] : uploaded
 
-      const old = await prisma.reference.findUnique({ where: { id } })
+      let personIds = fields.personIds ?? []
+      if (!Array.isArray(personIds)) personIds = [personIds]
+      personIds = personIds.map((v) => String(v))
+
+      const upload = files.file ? (Array.isArray(files.file) ? files.file[0] : files.file) : null
+
+      const old = await prisma.reference.findUnique({ where: { id }, include: { persons: true } })
       if (!old) return res.status(404).json({ error: 'Reference nenalezena' })
 
       let src = old.src
-      if (file) {
-        const oldRel = old.src.replace(/^\//, '')
-        await fs.promises.unlink(path.join(process.cwd(), 'public', oldRel)).catch(() => {})
-        const filename = path.basename(file.filepath)
+      if (upload) {
+        await fs.promises.unlink(path.join(process.cwd(), 'public', old.src.replace(/^\//, ''))).catch(() => {})
+        const filename = path.basename((upload as any).filepath)
         src = `/uploads/${filename}`
       }
 
       const updated = await prisma.reference.update({
         where: { id },
-        data: { label, category, src },
+        data: {
+          label,
+          category,
+          src,
+          persons: { set: personIds.map((pid) => ({ id: pid })) },
+        },
+        include: { persons: true },
       })
       return res.status(200).json(updated)
     } catch (e) {
       console.error('PUT error:', e)
-      return res.status(500).json({ error: 'Nepodařilo se upravit' })
+      return res.status(500).json({ error: 'Nepodařilo se upravit reference' })
     }
   }
 
@@ -55,8 +68,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     try {
       const old = await prisma.reference.findUnique({ where: { id } })
       if (old) {
-        const oldRel = old.src.replace(/^\//, '')
-        await fs.promises.unlink(path.join(process.cwd(), 'public', oldRel)).catch(() => {})
+        await fs.promises.unlink(path.join(process.cwd(), 'public', old.src.replace(/^\//, ''))).catch(() => {})
         await prisma.reference.delete({ where: { id } })
       }
       return res.status(200).json({ ok: true })
@@ -66,6 +78,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
   }
 
-  res.setHeader('Allow', ['PUT','DELETE'])
+  res.setHeader('Allow', ['PUT', 'DELETE'])
   return res.status(405).end(`Method ${req.method} Not Allowed`)
 }

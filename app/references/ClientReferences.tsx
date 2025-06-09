@@ -1,27 +1,42 @@
+// app/references/ClientReferences.tsx
 'use client'
+
 import { useState, ChangeEvent } from 'react'
 import Image from 'next/image'
 import styles from './page.module.css'
 
-type Reference = {
+interface Person {
+  id: string
+  name: string
+}
+interface Reference {
   id: string
   label: string
   src: string
   category: string
+  persons: Person[]
 }
+
+const CATEGORIES = [
+  { value: 'all',            label: 'Vše' },
+  { value: 'bytové domy',    label: 'Bytové domy' },
+  { value: 'komerční',       label: 'Komerční' },
+  { value: 'revitalizace',   label: 'Revitalizace' },
+]
 
 export default function ClientReferences({
   projects,
+  persons,
 }: {
   projects: Reference[]
+  persons: Person[]
 }) {
-  const [category, setCategory] = useState<string>('all')
-  const [person, setPerson] = useState<string>('all')
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [selectedPerson, setSelectedPerson]     = useState<string>('all')
 
-  // Filtrujeme jak podle kategorie, tak podle osoby
-  const filtered = projects.filter((p) =>
-    (category === 'all' || p.category.toLowerCase() === category) &&
-    (person === 'all'   || p.label === person)
+  const filtered = projects.filter(r =>
+    (selectedCategory === 'all' || r.category === selectedCategory) &&
+    (selectedPerson === 'all'   || r.persons.some(p => p.id === selectedPerson))
   )
 
   return (
@@ -29,59 +44,63 @@ export default function ClientReferences({
       <h1 className={styles.title}>Reference</h1>
 
       <div className={styles.filterBar}>
-        {/* Dropdown pro kategorie */}
-        <label htmlFor="category" className={styles.filterLabel}>
-          Filtrovat podle kategorie:
+        {/* Kategorie filter */}
+        <label htmlFor="filterCategory" className={styles.filterLabel}>
+          Kategorie:
         </label>
         <select
-          id="category"
+          id="filterCategory"
           className={styles.filterSelect}
-          value={category}
+          value={selectedCategory}
           onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-            setCategory(e.target.value)
+            setSelectedCategory(e.target.value)
           }
         >
-          <option value="all">Vše</option>
-          <option value="bytové domy">Bytové domy</option>
-          <option value="komerční">Komerční</option>
-          <option value="revitalizace">Revitalizace</option>
+          {CATEGORIES.map(c => (
+            <option key={c.value} value={c.value}>
+              {c.label}
+            </option>
+          ))}
         </select>
 
-        {/* Dropdown pro osoby */}
-        <label htmlFor="person" className={styles.filterLabel}>
-          Filtrovat podle osoby:
+        {/* Person filter */}
+        <label htmlFor="filterPerson" className={styles.filterLabel}>
+          Osoba:
         </label>
         <select
-          id="person"
+          id="filterPerson"
           className={styles.filterSelect}
-          value={person}
+          value={selectedPerson}
           onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-            setPerson(e.target.value)
+            setSelectedPerson(e.target.value)
           }
         >
           <option value="all">Vše</option>
-          <option value="Ing. Jan Rýpal">Ing. Jan Rýpal</option>
-          <option value="Ing. arch Kateřina Harazimová">
-            Ing. arch Kateřina Harazimová
-          </option>
-          <option value="Ing. Dana Jakšíková">Ing. Dana Jakšíková</option>
-          <option value="Jaromír Kužela">Jaromír Kužela</option>
+          {persons.map(p => (
+            <option key={p.id} value={p.id}>
+              {p.name}
+            </option>
+          ))}
         </select>
       </div>
 
       <div className={styles.galleryBar}>
         <div className={styles.galleryInner}>
-          {filtered.map((p) => (
-            <div key={p.id} className={styles.card}>
+          {filtered.map(r => (
+            <div key={r.id} className={styles.card}>
               <div className={styles.cardImage}>
                 <Image
-                  src={p.src}
-                  alt={p.label}
+                  src={r.src}
+                  alt={r.label}
                   fill
                   sizes="(max-width: 600px) 100vw, 30vw"
                 />
               </div>
-              <button className={styles.cardButton}>{p.label}</button>
+              <button className={styles.cardButton}>
+                {r.label}
+                <br />
+                <small>{r.persons.map(p => p.name).join(', ')}</small>
+              </button>
             </div>
           ))}
         </div>

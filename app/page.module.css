@@ -258,12 +258,12 @@
   margin-left: auto;
   display: flex;
   align-items: center;   
-  gap: 20px;                
+  gap: 20px;          
 }
 
 /* Kontakt */
 .ctaButtonContact {
-  width: 166px;     
+  width: 250px;     
   height: 77px;   
   background: var(--color-white);
   color: var(--color-black);
