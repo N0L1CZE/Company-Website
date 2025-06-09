@@ -1,8 +1,6 @@
 'use client'
 
 import Image from 'next/image'
-import { Header } from 'app/components/Header/Header'
-import { Footer } from 'app/components/Footer/Footer'
 import styles from './page.module.css'
 
 export default function EngineeringPage() {
