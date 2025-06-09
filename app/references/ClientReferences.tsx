@@ -16,9 +16,12 @@ export default function ClientReferences({
   projects: Reference[]
 }) {
   const [category, setCategory] = useState<string>('all')
+  const [person, setPerson] = useState<string>('all')
 
-  const filtered = projects.filter(
-    (p) => category === 'all' || p.category.toLowerCase() === category
+  // Filtrujeme jak podle kategorie, tak podle osoby
+  const filtered = projects.filter((p) =>
+    (category === 'all' || p.category.toLowerCase() === category) &&
+    (person === 'all'   || p.label === person)
   )
 
   return (
@@ -26,8 +29,9 @@ export default function ClientReferences({
       <h1 className={styles.title}>Reference</h1>
 
       <div className={styles.filterBar}>
+        {/* Dropdown pro kategorie */}
         <label htmlFor="category" className={styles.filterLabel}>
-          Filtrovat podle:
+          Filtrovat podle kategorie:
         </label>
         <select
           id="category"
@@ -41,6 +45,27 @@ export default function ClientReferences({
           <option value="bytové domy">Bytové domy</option>
           <option value="komerční">Komerční</option>
           <option value="revitalizace">Revitalizace</option>
+        </select>
+
+        {/* Dropdown pro osoby */}
+        <label htmlFor="person" className={styles.filterLabel}>
+          Filtrovat podle osoby:
+        </label>
+        <select
+          id="person"
+          className={styles.filterSelect}
+          value={person}
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            setPerson(e.target.value)
+          }
+        >
+          <option value="all">Vše</option>
+          <option value="Ing. Jan Rýpal">Ing. Jan Rýpal</option>
+          <option value="Ing. arch Kateřina Harazimová">
+            Ing. arch Kateřina Harazimová
+          </option>
+          <option value="Ing. Dana Jakšíková">Ing. Dana Jakšíková</option>
+          <option value="Jaromír Kužela">Jaromír Kužela</option>
         </select>
       </div>
 

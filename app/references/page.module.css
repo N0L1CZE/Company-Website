@@ -13,11 +13,13 @@
   margin-top: -1rem;
 }
 
+
 .filterBar {
   display: flex;
   align-items: center;
   gap: 1rem;
-  width: 25%;
+  /* místo width: 25%; */
+  width: fit-content;       /* nebo width: auto; */
   margin-bottom: 2rem;
   background-color: var(--color-blue);
   padding: 1rem 1.5rem;
