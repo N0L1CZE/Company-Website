@@ -1,26 +1,22 @@
-// prisma/seed.js
 require('dotenv').config()
 const { PrismaClient } = require('@prisma/client')
-const bcrypt = require('bcrypt')
-
 const prisma = new PrismaClient()
 
 async function main() {
-  // 0) Admin uživatel – e-mail a heslo načtené z .env
-  const adminEmail    = process.env.ADMIN_EMAIL
-  const plainPassword = process.env.ADMIN_PASSWORD_HASH
+  // 1) Load env vars
+  const adminEmail = process.env.ADMIN_EMAIL
+  const adminHash  = process.env.ADMIN_PASSWORD_HASH
 
   if (!adminEmail || !adminHash) {
-    console.error('❌ ADMIN_EMAIL nebo ADMIN_PASSWORD není nastaveno v .env')
+    console.error('❌ ADMIN_EMAIL nebo ADMIN_PASSWORD_HASH není nastaveno v prostředí')
     process.exit(1)
   }
 
-
   // Upsert admina
-  await prisma.user.upsert({
+   await prisma.user.upsert({
     where:  { email: adminEmail },
-    update: { adminHash },
-    create: { email: adminEmail, adminHash },
+    update: { passwordHash: adminHash },
+    create: { email: adminEmail, passwordHash: adminHash },
   })
   console.log(`✅ Admin seeded (email: ${adminEmail})`)
 
