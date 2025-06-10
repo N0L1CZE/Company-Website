@@ -25,19 +25,19 @@ export default function OurWorkPage() {
     {
       title: 'Projekt pro provedení stavby',
       text: 'Tato dokumentace vychází ze platné dokumentace pro stavební povolení. Specifikuje požadavky na kvalitu stavby a představuje „návod“ na její realizaci. Součástí je položkový rozpočet a výkaz výměr pro výběr dodavatele.',
-      icon: '/icons/passport.svg',
+      icon: '/icons/projekt_provedeni.svg',
       href: './our-work/projekt_pro_provedeni_stavby'
     },
     {
       title: 'Autorský a technický dozor, kolaudační rozhodnutí',
       text: 'Po dobu realizace stavby dohlíží zpracovatel (autor) dokumentace na její dodržování a schvaluje případné změny. Technický dozor stavebníka (klienta) je povinný u všech veřejně financovaných staveb a dohlíží na provádění stavby. Kolaudační řízení je povolení stavebního úřadu, že lze nyní stavbu užívat ke stanovenému účelu.',
-      icon: '/icons/passport.svg',
+      icon: '/icons/autorsky_technicky.svg',
       href: './our-work/autorsky_a_technicky_dozor_kolaudacni_rozhodnuti'
     },
     {
       title: 'Dokumentace skutečného provedení stavby',
       text: 'Tato dokumentace odráží skutečnou podobu stavby po jejím dokončení a jsou zde zapracovány všechny změny. Je prakticky shodná s prováděcí dokumentací. Vlastník stavby je nově povinen ji pořídit a uchovávat po celou dobu trvání stavby.',
-      icon: '/icons/passport.svg',
+      icon: '/icons/dokumentace.svg',
       href: './our-work/dokumentace_skutecneho_provedeni_stavby'
     },
   ]

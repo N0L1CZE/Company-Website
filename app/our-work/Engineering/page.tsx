@@ -15,15 +15,14 @@ export default function EngineeringPage() {
             <p className={styles.lead}>
               Studie stavby specifikuje řešení urbanistické, architektonické, dispoziční, provozní, konstrukční,
               technické, technologické, interiérové a materiálové. Dokumentace obsahuje průvodní zprávu s popisem řešení,
-              výkresy situace, půdorysů, řezů a pohledů. Vše je možné znázornit i pomocí vizualizací.<br />
-              <p>
+              výkresy situace, půdorysů, řezů a pohledů. Vše je možné znázornit i pomocí vizualizací.
+              </p>
+            <p className={styles.lead}>
               Urbanistická studie řeší prostorové a provozní uspořádání většího území (bez konkrétního návrhu jednotlivých staveb).
               Studie interiéru má za úkol navrhnout vybavení vnitřních prostor – od jednoho nábytkového kusu přes samostatnou místnost po celé budovy. Specifikuje materiálové, prostorové a
               barevné řešení, dále návaznost na stavbu (elektroinstalace, připojení na vodu a odkanalizování apod.). Na studii je možné navázat projektem, který představuje podklad pro dodavatele interiéru.
               Vše je možné poskytnou v digitálních formátech i fyzických výtiscích.
-              </p>
             </p>
-
           </div>
 
           <div className={styles.imageWrapper}>
