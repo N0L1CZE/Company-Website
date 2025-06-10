@@ -12,11 +12,13 @@
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
+    "cloudinary": "^2.6.1",
     "cookie": "^1.0.2",
     "dotenv": "^16.5.0",
     "formidable": "^3.5.4",
     "jsonwebtoken": "^9.0.2",
     "next": "15.3.2",
+    "next-cloudinary": "^6.16.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "sharp": "^0.34.2"
