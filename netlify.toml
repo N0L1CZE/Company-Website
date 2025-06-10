@@ -3,10 +3,11 @@
   command   = "npm ci && npx prisma generate && npx prisma migrate deploy && npm run seed && npm run build"
 
 [build.environment]
-  # Netlify poskytuje DATABASE_URL
+  # pro build
   ADMIN_EMAIL         = "admin@admin.cz"
   ADMIN_PASSWORD_HASH = "$ADMIN_PASSWORD_HASH"
   JWT_SECRET          = "$JWT_SECRET"
 
-  # Cloudinary
+[functions.environment]
+  # pro runtime vašich API‐routes
   CLOUDINARY_URL      = "cloudinary://721197318981415:cbd8qq_a-S18FWph0cFMnYukW-0@drmdedjur"
