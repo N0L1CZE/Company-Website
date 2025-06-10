@@ -3,7 +3,7 @@
   command   = "npm ci && npx prisma generate && npx prisma migrate deploy && npm run seed && npm run build"
 
 [build.environment]
-  # Netlify tu automaticky poskytne DATABASE_URL, neměň ho tady
+  # Netlify poskytuje DATABASE_URL
   ADMIN_EMAIL         = "admin@admin.cz"
   ADMIN_PASSWORD_HASH = "$ADMIN_PASSWORD_HASH"
   JWT_SECRET          = "$JWT_SECRET"

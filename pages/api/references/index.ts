@@ -1,29 +1,26 @@
-// pages/api/references/index.ts
 import type { NextApiRequest, NextApiResponse } from 'next'
 import formidable from 'formidable'
 import { v2 as cloudinary } from 'cloudinary'
 import { prisma } from '@/lib/prisma'
 
-// Disable Next.js body parser so formidable can handle the multipart form
+// Disable Next.js body parser so we can use formidable
 export const config = { api: { bodyParser: false } }
 
-// Configure Cloudinary from environment variables
-cloudinary.config({
-  cloud_name:    process.env.CLOUDINARY_CLOUD_NAME,
-  api_key:       process.env.CLOUDINARY_API_KEY,
-  api_secret:    process.env.CLOUDINARY_API_SECRET,
-})
+// Let Cloudinary pick up process.env.CLOUDINARY_URL
+cloudinary.config({ secure: true })
 
 async function parseForm(req: NextApiRequest) {
   const form = formidable({ keepExtensions: true })
   return new Promise<{ fields: formidable.Fields; files: formidable.Files }>(
     (resolve, reject) =>
-      form.parse(req, (err, fields, files) => (err ? reject(err) : resolve({ fields, files })))
+      form.parse(req, (err, fields, files) =>
+        err ? reject(err) : resolve({ fields, files })
+      )
   )
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // GET /api/references
+  // GET all references
   if (req.method === 'GET') {
     try {
       const refs = await prisma.reference.findMany({
@@ -37,21 +34,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
   }
 
-  // POST /api/references
+  // Create new reference
   if (req.method === 'POST') {
     try {
       const { fields, files } = await parseForm(req)
 
-      // Extract text fields
       const label    = Array.isArray(fields.label)    ? fields.label[0]    : (fields.label ?? '')
       const category = Array.isArray(fields.category) ? fields.category[0] : (fields.category ?? '')
-
-      // Normalize personIds to array of strings
-      let personIds = fields.personIds ?? []
+      let personIds  = fields.personIds ?? []
       if (!Array.isArray(personIds)) personIds = [personIds]
       personIds = personIds.map(String)
 
-      // Get the uploaded file
+      // Validate
       const upload = files.file
       const file   = Array.isArray(upload) ? upload[0] : upload
       if (!label || !category || !file) {
@@ -59,14 +53,13 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       }
 
       // Upload to Cloudinary
-      const result = await cloudinary.uploader.upload(
-        // @ts-ignore filepath always exists on formidable File
-        (file as formidable.File).filepath,
-        { folder: 'references' }
-      )
+      // @ts-ignore filepath is present on formidable File
+      const result = await cloudinary.uploader.upload((file as any).filepath, {
+        folder: 'references',
+      })
       const src = result.secure_url
 
-      // Create reference in database
+      // Save in DB
       const created = await prisma.reference.create({
         data: {
           label,
