@@ -1,23 +1,22 @@
 // prisma/seed.js
 require('dotenv').config()
-const bcrypt = require('bcrypt') 
+const bcrypt = require('bcrypt')               // ← import bcrypt
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 async function main() {
-  // 0) DELETE ALL PORTFOLIO ITEMS (to avoid FK violations)
+  // 0) DELETE ALL PORTFOLIO ITEMS (aby nás neblokovaly FK)
   await prisma.portfolioItem.deleteMany()
   console.log('🗑️ All portfolio items deleted')
 
-  // 1) DELETE ALL PERSONS (clean slate)
+  // 1) DELETE ALL PERSONS
   await prisma.person.deleteMany()
   console.log('⚠️ All persons deleted — ready to seed')
 
   // 2) Admin user
-  const adminEmail = process.env.ADMIN_EMAIL
-  const adminHash  = process.env.ADMIN_PASSWORD
-
-  if (adminEmail && adminHash) {
+  const adminEmail    = process.env.ADMIN_EMAIL
+  const adminPassword = process.env.ADMIN_PASSWORD     // ← tady definujeme proměnnou
+  if (adminEmail && adminPassword) {
     const adminHash = await bcrypt.hash(adminPassword, 10)
     await prisma.user.upsert({
       where:  { email: adminEmail },
@@ -26,7 +25,7 @@ async function main() {
     })
     console.log(`✅ Admin seeded (email: ${adminEmail})`)
   } else {
-    console.warn('⚠️ ADMIN_EMAIL or ADMIN_PASSWORD_HASH not set — skipping admin seed')
+    console.warn('⚠️ ADMIN_EMAIL nebo ADMIN_PASSWORD není nastaveno — přeskočeno')
   }
 
   // 3) Persons
@@ -63,7 +62,6 @@ async function main() {
     { key: 'contact.person.kuzela.role',       content: 'Rozpočtář' },
     { key: 'contact.person.kuzela.details',    content: `IČO: 10 85 32 01\nE-mail: jaromir.kuzela8@gmail.com / kuzela@forhaus-uh.cz\nTel: 731 782 932\nVlčnov 514\n687 61 Vlčnov` },
   ]
-
   for (const item of contactItems) {
     await prisma.contactText.upsert({
       where:  { key: item.key },
