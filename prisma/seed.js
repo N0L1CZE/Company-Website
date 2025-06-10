@@ -14,7 +14,7 @@ async function main() {
     // Upsert admina
     await prisma.user.upsert({
       where:  { email: adminEmail },
-      update: { /* pokud chceš vždy resetovat heslo: passwordHash: adminHash */ },
+      update: { passwordHash: adminHash },
       create: { email: adminEmail, passwordHash: adminHash },
     })
     console.log(`✅ Admin seeded (email: ${adminEmail})`)

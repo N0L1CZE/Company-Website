@@ -1,7 +1,7 @@
 # netlify.toml
 [build]
   publish   = ".next"
-  command   = "npm ci && npx prisma migrate deploy && npx prisma generate && npm run seed && npm run build"
+  command   = "npm ci && npx prisma generate && npx prisma migrate deploy && npm run seed && npm run build"
 
 [build.environment]
   ADMIN_EMAIL         = "admin@admin.cz"
