@@ -1,4 +1,3 @@
-// pages/api/references/[id].ts
 import type { NextApiRequest, NextApiResponse } from 'next'
 import formidable from 'formidable'
 import fs from 'fs'
@@ -7,77 +6,82 @@ import { prisma } from '@/lib/prisma'
 
 export const config = { api: { bodyParser: false } }
 
-function parseForm(req: NextApiRequest) {
+async function parseForm(req: NextApiRequest) {
   const uploadDir = path.join(process.cwd(), 'public', 'uploads')
-  fs.mkdirSync(uploadDir, { recursive: true })
+  await fs.promises.mkdir(uploadDir, { recursive: true })
 
   const form = formidable({ uploadDir, keepExtensions: true })
   return new Promise<{ fields: formidable.Fields; files: formidable.Files }>(
-    (resolve, reject) => {
-      form.parse(req, (err, fields, files) => {
-        if (err) reject(err)
-        else resolve({ fields, files })
-      })
-    }
+    (resolve, reject) =>
+      form.parse(req, (err, fields, files) => err ? reject(err) : resolve({ fields, files }))
   )
 }
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { id } = req.query as { id: string }
+  const raw = req.query.id
+  const id  = Array.isArray(raw) ? raw[0] : raw
+  if (!id) return res.status(400).json({ error: 'Chybí ID' })
 
+  // PUT /api/references/[id]
   if (req.method === 'PUT') {
     try {
       const { fields, files } = await parseForm(req)
-      const label = Array.isArray(fields.label) ? fields.label[0] : fields.label ?? ''
+      const label    = Array.isArray(fields.label)    ? fields.label[0]    : fields.label ?? ''
       const category = Array.isArray(fields.category) ? fields.category[0] : fields.category ?? ''
 
       let personIds = fields.personIds ?? []
       if (!Array.isArray(personIds)) personIds = [personIds]
-      personIds = personIds.map((v) => String(v))
+      personIds = personIds.map(String)
 
-      const upload = files.file ? (Array.isArray(files.file) ? files.file[0] : files.file) : null
+      // Fetch old record to delete old file if replaced
+      const old = await prisma.reference.findUnique({ where: { id } })
+      let src = old?.src
 
-      const old = await prisma.reference.findUnique({ where: { id }, include: { persons: true } })
-      if (!old) return res.status(404).json({ error: 'Reference nenalezena' })
-
-      let src = old.src
+      // If new file uploaded, remove old + set new src
+      const upload = files.file
       if (upload) {
-        await fs.promises.unlink(path.join(process.cwd(), 'public', old.src.replace(/^\//, ''))).catch(() => {})
-        const filename = path.basename((upload as any).filepath)
+        const file = Array.isArray(upload) ? upload[0] : upload
+        if (old?.src) {
+          await fs.promises.unlink(path.join(process.cwd(), 'public', old.src.replace(/^\//, ''))).catch(() => {})
+        }
+        const filename = path.basename((file as any).filepath)
         src = `/uploads/${filename}`
       }
 
+      // Update DB
       const updated = await prisma.reference.update({
         where: { id },
         data: {
           label,
           category,
-          src,
-          persons: { set: personIds.map((pid) => ({ id: pid })) },
+          ...(src ? { src } : {}),
+          persons: { set: personIds.map(pid => ({ id: pid })) },
         },
         include: { persons: true },
       })
       return res.status(200).json(updated)
     } catch (e) {
-      console.error('PUT error:', e)
+      console.error('PUT /api/references/[id] error', e)
       return res.status(500).json({ error: 'Nepodařilo se upravit reference' })
     }
   }
 
+  // DELETE /api/references/[id]
   if (req.method === 'DELETE') {
     try {
       const old = await prisma.reference.findUnique({ where: { id } })
       if (old) {
+        // remove file
         await fs.promises.unlink(path.join(process.cwd(), 'public', old.src.replace(/^\//, ''))).catch(() => {})
         await prisma.reference.delete({ where: { id } })
       }
       return res.status(200).json({ ok: true })
     } catch (e) {
-      console.error('DELETE error:', e)
-      return res.status(500).json({ error: 'Nepodařilo se smazat' })
+      console.error('DELETE /api/references/[id] error', e)
+      return res.status(500).json({ error: 'Nepodařilo se smazat reference' })
     }
   }
 
-  res.setHeader('Allow', ['PUT', 'DELETE'])
-  return res.status(405).end(`Method ${req.method} Not Allowed`)
+  res.setHeader('Allow', ['PUT','DELETE'])
+  res.status(405).end(`Method ${req.method} Not Allowed`)
 }
