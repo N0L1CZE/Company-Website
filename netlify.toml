@@ -8,3 +8,12 @@
   ADMIN_PASSWORD_HASH = "$2b$10$He3p70nk2etn9p3fF.Auo.ZUuGqy.9oBM5ab8jpDoGKPY2DKZyyZO" 
   DATABASE_URL        = "file:./dev.db"
   JWT_SECRET          = "abcd1234"
+
+[functions]
+  directory = ".netlify/functions-internal"
+
+  [functions.environment]
+  ADMIN_EMAIL           = "admin@admin.cz"
+  ADMIN_PASSWORD_HASH   = "$2b$10$He3p70nk2etn9p3fF.Auo.ZUuGqy.9oBM5ab8jpDoGKPY2DKZyyZO"
+  DATABASE_URL          = "file:./dev.db"
+  JWT_SECRET            = "abcd1234"
