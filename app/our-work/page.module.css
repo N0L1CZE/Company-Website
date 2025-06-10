@@ -137,7 +137,7 @@
 }
 
 .card:hover {
-  background-color: #fafafa;
+  background-color: var(--color-aqua-hover);
   color: #000000;
   transition: background-color 0.2s ease, color 0.2s ease;
 }

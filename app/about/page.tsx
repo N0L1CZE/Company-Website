@@ -8,13 +8,18 @@ export default function AboutPage() {
       <main className={styles.container}>
         {/* Sekce „O společnosti“ */}
         <section className={styles.section}>
-          <h1 className={styles.heading}>O volném sdružení OSVČ Forhaus</h1>
+          <h1 className={styles.heading}>O nás</h1>
           <p className={styles.text}>
-            ForHaus je architektonická a projekční kancelář se sídlem v Uherském Hradišti.
-            Od svého vzniku se specializuje na komplexní služby v oblasti přípravy, projektování a realizace staveb.
-            Díky důrazu na kvalitu, preciznost a individuální přístup k zákazníkům se společnost vyprofilovala
-            jako spolehlivý partner pro soukromé investory, obce i firmy.
+            Forhaus je architektonická a projekční kancelář, která funguje jako volné sdružení samostatných projektantů, architekta a rozpočtáře.
+            Jsme schopni zajistit návrh a projekční přípravu staveb, urbanistických celků a interiérů.
+            Máme za sebou desítky úspěšných realizací nejen v Uherském Hradišti.
+            Zprostředkujeme i kontakty na dotační agentury a jiné specialisty.
+            Nabízíme i dílčí činnosti jako samostatná statická posouzení, inženýrskou činnost, návrh zateplení objektů a projekty jako dokumentace bouracích prací.
           </p>
+          <p className={styles.text}>Ing. arch. Kateřina Harazimová – architektura, urbanismus, interiéry<br />
+          Ing. Jan Rýpal – stavební projektant, statik<br />
+          Ing. Dana Jakšíková – stavební projektant<br />
+          Jaroslav Kužela – rozpočtář</p>
         </section>
 
         {/* Sekce „Naše služby“ */}

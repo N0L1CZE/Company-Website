@@ -432,8 +432,8 @@
 
 .moreButton:hover,
 .moreButton:focus {
-  background: var(--color-black) !important;
-  color: var(--color-white) !important;
+  background: var(--color-aqua-hover) !important;
+  color: var(--color-black) !important;
 }
 
 
@@ -468,7 +468,7 @@
 
 /* ================ ABOUT CARDS ================ */
 .aboutCard:hover {
-  background: var(--color-white);
+  background: var(--color-aqua-hover);
   color: var(--color-black);
   transform: translateY(-6px);
 }
@@ -476,7 +476,7 @@
 /* ================ CTA BUTTONS ================ */
 .ctaButtonContact:hover,
 .ctaPhoneButton:hover {
-  background: var(--color-white);
+  background: var(--color-aqua-hover);
   color: var(--color-black);
   transform: translateY(-3px);
 }
