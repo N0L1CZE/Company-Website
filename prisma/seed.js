@@ -4,30 +4,29 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 async function main() {
-  // 1) Load env vars
+  // 1) Admin user
   const adminEmail = process.env.ADMIN_EMAIL
   const adminHash  = process.env.ADMIN_PASSWORD_HASH
 
-  if (!adminEmail || !adminHash) {
-    console.warn('⚠️ ADMIN_EMAIL nebo ADMIN_PASSWORD_HASH není nastaveno v prostředí, přeskoč seed admina')
-  } else {
-    // Upsert admina
+  if (adminEmail && adminHash) {
     await prisma.user.upsert({
       where:  { email: adminEmail },
       update: { passwordHash: adminHash },
       create: { email: adminEmail, passwordHash: adminHash },
     })
     console.log(`✅ Admin seeded (email: ${adminEmail})`)
+  } else {
+    console.warn('⚠️ ADMIN_EMAIL nebo ADMIN_PASSWORD_HASH není nastaveno, přeskočeno')
   }
 
   // 2) Persons
-  const names = [
+  const personNames = [
     'Ing. Jan Rýpal',
-    'Ing. arch Kateřina Harazimová',
+    'Ing. arch. Kateřina Harazimová',
     'Ing. Dana Jakšíková',
-    'Jaromír Kužela',
+    'Jaroslav Kužela',
   ]
-  for (const name of names) {
+  for (const name of personNames) {
     await prisma.person.upsert({
       where: { name },
       update: {},
@@ -36,7 +35,7 @@ async function main() {
   }
   console.log('✅ Persons seeded')
 
-  // 3) ContactText
+  // 3) ContactText items
   const contactItems = [
     { key: 'contact.title',                content: 'Kontakt' },
     { key: 'contact.company.name',         content: 'ForHaus – Architektonická a projekční kancelář' },
@@ -54,7 +53,6 @@ async function main() {
     { key: 'contact.person.kuzela.role',       content: 'Rozpočtář' },
     { key: 'contact.person.kuzela.details',    content: `IČO: 10 85 32 01\nE-mail: jaromir.kuzela8@gmail.com / kuzela@forhaus-uh.cz\nTel: 731 782 932\nVlčnov 514\n687 61 Vlčnov` },
   ]
-
   for (const item of contactItems) {
     await prisma.contactText.upsert({
       where:  { key: item.key },
@@ -67,7 +65,7 @@ async function main() {
 
 main()
   .catch(e => {
-    console.error(e)
+    console.error('❌ Seed error:', e)
     process.exit(1)
   })
   .finally(async () => {

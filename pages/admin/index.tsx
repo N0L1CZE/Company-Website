@@ -18,6 +18,9 @@ export default function AdminDashboard() {
         <li style={{ marginBottom: 10 }}>
           <Link href="/admin/contact-texts">Texty na stránce Kontakt</Link>
         </li>
+        <li style={{ marginBottom: 10 }}>
+          <Link href="/admin/portfolio">Správa portfolia</Link>
+        </li>
         {/* Další odkazy na admin sekce */}
       </ul>
     </main>
