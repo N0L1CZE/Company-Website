@@ -18,14 +18,14 @@ interface Reference {
 }
 
 const CATEGORIES = [
-  'Obytné a polyfunkční stavby',
-  'Komerční a administrativní stavby',
-  'Občanská vybavenost',
-  'Zdravotnictví a školství',
-  'Průmyslové a zemědělské stavby',
-  'Interiér, drobná architektura',
-  'Urbanismus, komunikace',
-  'Ostatní',
+  { value: 'Obytné a polyfunkční stavby',         label: 'Obytné a polyfunkční stavby' },
+  { value: 'Komerční a administrativní stavby',   label: 'Komerční a administrativní stavby' },
+  { value: 'Občanská vybavenost',                 label: 'Občanská vybavenost' },
+  { value: 'Zdravotnictví a školství',            label: 'Zdravotnictví a školství' },
+  { value: 'Průmyslové a zemědělské stavby',       label: 'Průmyslové a zemědělské stavby' },
+  { value: 'Interiér, drobná architektura',       label: 'Interiér, drobná architektura' },
+  { value: 'Urbanismus, komunikace',              label: 'Urbanismus, komunikace' },
+  { value: 'Ostatní',                             label: 'Ostatní' },
 ]
 
 export default function ClientReferences({
@@ -35,13 +35,12 @@ export default function ClientReferences({
   projects: Reference[]
   persons: Person[]
 }) {
-  // '' znamená „nezafiltrovat“ (vše)
-  const [selectedCategory, setSelectedCategory] = useState<string>('')
-  const [selectedPerson, setSelectedPerson]     = useState<string>('')
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [selectedPerson, setSelectedPerson]     = useState<string>('all')
 
   const filtered = projects.filter(r =>
-    (selectedCategory === '' || r.category === selectedCategory) &&
-    (selectedPerson === ''   || r.persons.some(p => p.id === selectedPerson))
+    (selectedCategory === 'all' || r.category === selectedCategory) &&
+    (selectedPerson === 'all'   || r.persons.some(p => p.id === selectedPerson))
   )
 
   return (
@@ -49,6 +48,7 @@ export default function ClientReferences({
       <h1 className={styles.title}>Reference</h1>
 
       <div className={styles.filterBar}>
+        {/* Kategorie filter */}
         <label htmlFor="filterCategory" className={styles.filterLabel}>
           Kategorie:
         </label>
@@ -60,14 +60,14 @@ export default function ClientReferences({
             setSelectedCategory(e.target.value)
           }
         >
-          <option value="">Všechny</option>
-          {CATEGORIES.map(cat => (
-            <option key={cat} value={cat}>
-              {cat}
+          {CATEGORIES.map(c => (
+            <option key={c.value} value={c.value}>
+              {c.label}
             </option>
           ))}
         </select>
 
+        {/* Person filter */}
         <label htmlFor="filterPerson" className={styles.filterLabel}>
           Osoba:
         </label>
@@ -79,7 +79,7 @@ export default function ClientReferences({
             setSelectedPerson(e.target.value)
           }
         >
-          <option value="">Vše</option>
+          <option value="all">Vše</option>
           {persons.map(p => (
             <option key={p.id} value={p.id}>
               {p.name}
@@ -100,12 +100,11 @@ export default function ClientReferences({
                   sizes="(max-width: 600px) 100vw, 30vw"
                 />
               </div>
-              <div className={styles.cardInfo}>
-                <h3 className={styles.cardLabel}>{r.label}</h3>
-                <p className={styles.cardPersons}>
-                  {r.persons.map(p => p.name).join(', ')}
-                </p>
-              </div>
+              <button className={styles.cardButton}>
+                {r.label}
+                <br />
+                <small>{r.persons.map(p => p.name).join(', ')}</small>
+              </button>
             </div>
           ))}
         </div>
