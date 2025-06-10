@@ -1,9 +1,10 @@
+# netlify.toml
 [build]
   publish   = ".next"
   command   = "npm ci && npx prisma migrate deploy && npx prisma generate && npm run seed && npm run build"
 
 [build.environment]
   ADMIN_EMAIL         = "admin@admin.cz"
-  ADMIN_PASSWORD_HASH = "$2a$10$aDUEh1Hw6fWbl7.ZKLBfGOLyfn.9kwOiFJOmS2utLsYxEJSZb2a1."
+  ADMIN_PASSWORD_HASH = "$2b$10$He3p70nk2etn9p3fF.Auo.ZUuGqy.9oBM5ab8jpDoGKPY2DKZyyZO" 
   DATABASE_URL        = "file:./dev.db"
   JWT_SECRET          = "abcd1234"
