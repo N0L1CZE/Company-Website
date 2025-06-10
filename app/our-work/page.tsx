@@ -62,8 +62,8 @@ export default function OurWorkPage() {
                   <Image
                     src={item.icon}
                     alt={item.title}
-                    width={120}
-                    height={120}
+                    width={80}
+                    height={80}
                     priority
                   />
                 </div>
