@@ -1,3 +1,4 @@
+// prisma/seed.js
 require('dotenv').config()
 const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
@@ -8,19 +9,18 @@ async function main() {
   const adminHash  = process.env.ADMIN_PASSWORD_HASH
 
   if (!adminEmail || !adminHash) {
-    console.error('❌ ADMIN_EMAIL nebo ADMIN_PASSWORD_HASH není nastaveno v prostředí')
-    process.exit(1)
+    console.warn('⚠️ ADMIN_EMAIL nebo ADMIN_PASSWORD_HASH není nastaveno v prostředí, přeskoč seed admina')
+  } else {
+    // Upsert admina
+    await prisma.user.upsert({
+      where:  { email: adminEmail },
+      update: { /* pokud chceš vždy resetovat heslo: passwordHash: adminHash */ },
+      create: { email: adminEmail, passwordHash: adminHash },
+    })
+    console.log(`✅ Admin seeded (email: ${adminEmail})`)
   }
 
-  // Upsert admina
-   await prisma.user.upsert({
-    where:  { email: adminEmail },
-    update: { passwordHash: adminHash },
-    create: { email: adminEmail, passwordHash: adminHash },
-  })
-  console.log(`✅ Admin seeded (email: ${adminEmail})`)
-
-  // 1) Persons
+  // 2) Persons
   const names = [
     'Ing. Jan Rýpal',
     'Ing. arch Kateřina Harazimová',
@@ -36,14 +36,14 @@ async function main() {
   }
   console.log('✅ Persons seeded')
 
-  // 2) ContactText
+  // 3) ContactText
   const contactItems = [
-    { key: 'contact.title',               content: 'Kontakt' },
-    { key: 'contact.company.name',        content: 'ForHaus – Architektonická a projekční kancelář' },
-    { key: 'contact.company.address',     content: `Palackého náměstí 231\n686 01 Uherské Hradiště\n(3. NP vlevo)` },
-    { key: 'contact.person.rypal.name',   content: 'Ing. Jan Rýpal' },
-    { key: 'contact.person.rypal.role',   content: 'Autorizovaný inženýr, Projektant pozemních staveb, statik' },
-    { key: 'contact.person.rypal.details',content: `Číslo autorizace ČKAIT 1301388\nIČO: 62 81 93 48\nE-mail: rypaljan@seznam.cz / rypal@forhaus-uh.cz\nTel: 720 020 388\nNádražní 355\n696 85 Moravský Písek` },
+    { key: 'contact.title',                content: 'Kontakt' },
+    { key: 'contact.company.name',         content: 'ForHaus – Architektonická a projekční kancelář' },
+    { key: 'contact.company.address',      content: `Palackého náměstí 231\n686 01 Uherské Hradiště\n(3. NP vlevo)` },
+    { key: 'contact.person.rypal.name',    content: 'Ing. Jan Rýpal' },
+    { key: 'contact.person.rypal.role',    content: 'Autorizovaný inženýr, Projektant pozemních staveb, statik' },
+    { key: 'contact.person.rypal.details', content: `Číslo autorizace ČKAIT 1301388\nIČO: 62 81 93 48\nE-mail: rypaljan@seznam.cz / rypal@forhaus-uh.cz\nTel: 720 020 388\nNádražní 355\n696 85 Moravský Písek` },
     { key: 'contact.person.harazimova.name',    content: 'Ing. arch. Kateřina Harazimová' },
     { key: 'contact.person.harazimova.role',    content: 'Autorizovaný architekt' },
     { key: 'contact.person.harazimova.details', content: `Číslo autorizace ČKA 05078\nIČO: 09 76 45 85\nE-mail: kaharazimova@gmail.com / harazimova@forhaus-uh.cz\nTel: 774 936 020\nŠafaříkova 720\n686 01 Uherské Hradiště` },
