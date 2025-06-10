@@ -4,10 +4,15 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 async function main() {
+  // 0) DELETE ALL PORTFOLIO ITEMS (to avoid FK violations)
+  await prisma.portfolioItem.deleteMany()
+  console.log('🗑️ All portfolio items deleted')
 
+  // 1) DELETE ALL PERSONS (clean slate)
   await prisma.person.deleteMany()
-  console.log('⚠️ Všichni lidé smazáni — připraveni k novému seed')
-  // 1) Admin user
+  console.log('⚠️ All persons deleted — ready to seed')
+
+  // 2) Admin user
   const adminEmail = process.env.ADMIN_EMAIL
   const adminHash  = process.env.ADMIN_PASSWORD_HASH
 
@@ -19,10 +24,10 @@ async function main() {
     })
     console.log(`✅ Admin seeded (email: ${adminEmail})`)
   } else {
-    console.warn('⚠️ ADMIN_EMAIL nebo ADMIN_PASSWORD_HASH není nastaveno, přeskočeno')
+    console.warn('⚠️ ADMIN_EMAIL or ADMIN_PASSWORD_HASH not set — skipping admin seed')
   }
 
-  // 2) Persons
+  // 3) Persons
   const personNames = [
     'Ing. Jan Rýpal',
     'Ing. arch. Kateřina Harazimová',
@@ -31,14 +36,14 @@ async function main() {
   ]
   for (const name of personNames) {
     await prisma.person.upsert({
-      where: { name },
+      where:  { name },
       update: {},
       create: { name },
     })
   }
   console.log('✅ Persons seeded')
 
-  // 3) ContactText items
+  // 4) ContactText items
   const contactItems = [
     { key: 'contact.title',                content: 'Kontakt' },
     { key: 'contact.company.name',         content: 'ForHaus – Architektonická a projekční kancelář' },
@@ -56,6 +61,7 @@ async function main() {
     { key: 'contact.person.kuzela.role',       content: 'Rozpočtář' },
     { key: 'contact.person.kuzela.details',    content: `IČO: 10 85 32 01\nE-mail: jaromir.kuzela8@gmail.com / kuzela@forhaus-uh.cz\nTel: 731 782 932\nVlčnov 514\n687 61 Vlčnov` },
   ]
+
   for (const item of contactItems) {
     await prisma.contactText.upsert({
       where:  { key: item.key },
