@@ -4,6 +4,9 @@ const { PrismaClient } = require('@prisma/client')
 const prisma = new PrismaClient()
 
 async function main() {
+
+  await prisma.person.deleteMany()
+  console.log('⚠️ Všichni lidé smazáni — připraveni k novému seed')
   // 1) Admin user
   const adminEmail = process.env.ADMIN_EMAIL
   const adminHash  = process.env.ADMIN_PASSWORD_HASH
