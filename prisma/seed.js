@@ -15,7 +15,7 @@ async function main() {
 
   // 2) Admin user
   const adminEmail = process.env.ADMIN_EMAIL
-  const adminHash  = process.env.ADMIN_PASSWORD_HASH
+  const adminHash  = process.env.ADMIN_PASSWORD
 
   if (adminEmail && adminHash) {
     const adminHash = await bcrypt.hash(adminPassword, 10)
