@@ -18,14 +18,14 @@ interface Reference {
 }
 
 const CATEGORIES = [
-  { value: 'Obytné a polyfunkční stavby',         label: 'Obytné a polyfunkční stavby' },
-  { value: 'Komerční a administrativní stavby',   label: 'Komerční a administrativní stavby' },
-  { value: 'Občanská vybavenost',                 label: 'Občanská vybavenost' },
-  { value: 'Zdravotnictví a školství',            label: 'Zdravotnictví a školství' },
-  { value: 'Průmyslové a zemědělské stavby',       label: 'Průmyslové a zemědělské stavby' },
-  { value: 'Interiér, drobná architektura',       label: 'Interiér, drobná architektura' },
-  { value: 'Urbanismus, komunikace',              label: 'Urbanismus, komunikace' },
-  { value: 'Ostatní',                             label: 'Ostatní' },
+  { value: 'Obytné a polyfunkční stavby',       label: 'Obytné a polyfunkční stavby' },
+  { value: 'Komerční a administrativní stavby', label: 'Komerční a administrativní stavby' },
+  { value: 'Občanská vybavenost',               label: 'Občanská vybavenost' },
+  { value: 'Zdravotnictví a školství',          label: 'Zdravotnictví a školství' },
+  { value: 'Průmyslové a zemědělské stavby',     label: 'Průmyslové a zemědělské stavby' },
+  { value: 'Interiér, drobná architektura',     label: 'Interiér, drobná architektura' },
+  { value: 'Urbanismus, komunikace',            label: 'Urbanismus, komunikace' },
+  { value: 'Ostatní',                           label: 'Ostatní' },
 ]
 
 export default function ClientReferences({
@@ -48,7 +48,6 @@ export default function ClientReferences({
       <h1 className={styles.title}>Reference</h1>
 
       <div className={styles.filterBar}>
-        {/* Kategorie filter */}
         <label htmlFor="filterCategory" className={styles.filterLabel}>
           Kategorie:
         </label>
@@ -60,6 +59,7 @@ export default function ClientReferences({
             setSelectedCategory(e.target.value)
           }
         >
+          <option value="all">Všechny</option>
           {CATEGORIES.map(c => (
             <option key={c.value} value={c.value}>
               {c.label}
@@ -67,7 +67,6 @@ export default function ClientReferences({
           ))}
         </select>
 
-        {/* Person filter */}
         <label htmlFor="filterPerson" className={styles.filterLabel}>
           Osoba:
         </label>
@@ -100,11 +99,13 @@ export default function ClientReferences({
                   sizes="(max-width: 600px) 100vw, 30vw"
                 />
               </div>
-              <button className={styles.cardButton}>
-                {r.label}
-                <br />
-                <small>{r.persons.map(p => p.name).join(', ')}</small>
-              </button>
+              {/* nově samostatný blok s názvem a osobami */}
+              <div className={styles.cardInfo}>
+                <h3 className={styles.cardLabel}>{r.label}</h3>
+                <p className={styles.cardPersons}>
+                  {r.persons.map(p => p.name).join(', ')}
+                </p>
+              </div>
             </div>
           ))}
         </div>
