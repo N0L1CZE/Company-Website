@@ -8,30 +8,22 @@ export default function EngineeringPage() {
     <>
 
       <main className={styles.container}>
-        <h1 className={styles.title}>Inženýrská činnost</h1>
+        <h1 className={styles.title}>Návrh stavby – studie</h1>
 
         <div className={styles.content}>
           <div className={styles.textBlock}>
             <p className={styles.lead}>
-              Zajišťujeme kompletní inženýrskou činnost ve výstavbě, tedy veškeré kroky potřebné 
-              pro získání povolení a hladký průběh projektu. Klientům šetříme čas i starosti díky 
-              profesionálnímu zastupování na úřadech a při jednání s dotčenými orgány.
+              Studie stavby specifikuje řešení urbanistické, architektonické, dispoziční, provozní, konstrukční,
+              technické, technologické, interiérové a materiálové. Dokumentace obsahuje průvodní zprávu s popisem řešení,
+              výkresy situace, půdorysů, řezů a pohledů. Vše je možné znázornit i pomocí vizualizací.<br />
+              <p>
+              Urbanistická studie řeší prostorové a provozní uspořádání většího území (bez konkrétního návrhu jednotlivých staveb).
+              Studie interiéru má za úkol navrhnout vybavení vnitřních prostor – od jednoho nábytkového kusu přes samostatnou místnost po celé budovy. Specifikuje materiálové, prostorové a
+              barevné řešení, dále návaznost na stavbu (elektroinstalace, připojení na vodu a odkanalizování apod.). Na studii je možné navázat projektem, který představuje podklad pro dodavatele interiéru.
+              Vše je možné poskytnou v digitálních formátech i fyzických výtiscích.
+              </p>
             </p>
 
-            <h2 className={styles.subheading}>Co zařídíme?</h2>
-            <ul className={styles.list}>
-              <li>Vyjádření správců sítí a dotčených orgánů</li>
-              <li>Podání žádostí o územní rozhodnutí a stavební povolení</li>
-              <li>Koordinaci s projektanty a profesemi</li>
-              <li>Zastupování investora během celého procesu</li>
-            </ul>
-
-            <h2 className={styles.subheading}>Pro koho je služba vhodná?</h2>
-            <ul className={styles.list}>
-              <li>Pro soukromé stavebníky, firmy i obce</li>
-              <li>Při nové výstavbě, přestavbě i legalizaci staveb</li>
-              <li>Pro každého, kdo chce ušetřit čas a mít jistotu správného postupu</li>
-            </ul>
           </div>
 
           <div className={styles.imageWrapper}>

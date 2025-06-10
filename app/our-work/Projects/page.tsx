@@ -7,34 +7,34 @@ export default function ProjectPage() {
 
       <main className={styles.container}>
         {/* Nadpis */}
-        <h1 className={styles.title}>Projektová činnost</h1>
+        <h1 className={styles.title}>Příprava projektu, projekční podklady</h1>
 
-        {/* Úvodní odstavec */}
+          {/* Sekce „Naše služby“ */} 
+        <section className={styles.section}>
+          <h2 className={styles.subheading}>Mezi projekční podklady patří např.:</h2>
+          <ul className={styles.list}>
+            <li>Geometrický plán</li>
+            <li>zaměření pozemku (polohopis a výškopis); zaměření výšek okolních budov</li>
+            <li>zaměření budov (v případě rekonstrukcí)</li>
+            <li>inženýrsko-geologický průzkum</li>
+            <li>hydrogeologický průzkum</li>
+            <li>pedologický a radonový průzkum</li>
+            <li>biologický a dendrologický průzkum</li>
+            <li>mapa záplavových území</li>
+            <li>archeologický průzkum</li>
+            <li>fotodokumentace</li>
+            <li>pasportizace okolních staveb</li>
+            <li>měření hluku</li>
+            <li>stavebně technický průzkum</li>
+            <li>stavebně historický průzkum</li>
+          </ul>
+        </section>
+
+           {/* Úvodní odstavec */}
         <p className={styles.intro}>
-          V ForHaus UH se věnujeme kompletní projektové činnosti ve výstavbě – od úvodní studie až po podklady pro realizaci. Naším cílem je navrhovat funkční, estetické a technicky kvalitní stavby na míru potřebám klienta.
+          K přípravě projektu je potřeba součinnost klienta jako např. předání podkladů, zajištění vstupu na pozemek nebo na stavbu, stanovení předpokládaných nákladů apod.
         </p>
 
-        {/* Sekce „Naše služby“ */}
-        <section className={styles.section}>
-          <h2 className={styles.heading}>Naše služby</h2>
-          <ul className={styles.list}>
-            <li>Architektonické studie – první návrhy, dispozice, vzhled, zapojení do okolí</li>
-            <li>Dokumentace pro územní a stavební řízení – zajištění všech potřebných výkresů a vyjádření</li>
-            <li>Prováděcí dokumentace – podrobný projekt pro samotnou výstavbu</li>
-            <li>Autorský dozor – dohled nad správným provedením projektu na stavbě</li>
-          </ul>
-        </section>
-
-        {/* Sekce „Co projektujeme?“ */}
-        <section className={styles.section}>
-          <h2 className={styles.heading}>Co projektujeme?</h2>
-          <ul className={styles.list}>
-            <li>Rodinné a bytové domy</li>
-            <li>Veřejné a administrativní budovy</li>
-            <li>Rekonstrukce a přestavby</li>
-            <li>Pasivní a nízkoenergetické stavby</li>
-          </ul>
-        </section>
 
         {/* Obrázkový pás */}
     <section className={styles.imagesBar}>
