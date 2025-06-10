@@ -1,6 +1,6 @@
 [build]
   publish   = ".next"
-  command   = "npm ci && npx prisma generate && npx prisma migrate deploy && npm run seed && npm run build"
+  command = "npm ci && npx prisma generate && npx prisma migrate deploy && npm run build"
 
 [build.environment]
   # pro build

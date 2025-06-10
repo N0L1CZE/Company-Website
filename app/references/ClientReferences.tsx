@@ -16,11 +16,16 @@ interface Reference {
   persons: Person[]
 }
 
-// dynamicky získáme kategorie z dat
-const CATEGORIES = Array.from(new Set<string>(
-  // @ts-ignore
-  (typeof window !== 'undefined' ? [] : []).concat() // workaround to satisfy TS
-))
+const CATEGORIES = [
+  { value: 'Obytné a polyfunkční stavby',         label: 'Obytné a polyfunkční stavby' },
+  { value: 'Komerční a administrativní stavby',   label: 'Komerční a administrativní stavby' },
+  { value: 'Občanská vybavenost',                 label: 'Občanská vybavenost' },
+  { value: 'Zdravotnictví a školství',            label: 'Zdravotnictví a školství' },
+  { value: 'Průmyslové a zemědělské stavby',       label: 'Průmyslové a zemědělské stavby' },
+  { value: 'Interiér, drobná architektura',       label: 'Interiér, drobná architektura' },
+  { value: 'Urbanismus, komunikace',              label: 'Urbanismus, komunikace' },
+  { value: 'Ostatní',                             label: 'Ostatní' },
+]
 
 export default function ClientReferences({
   projects,
@@ -29,23 +34,20 @@ export default function ClientReferences({
   projects: Reference[]
   persons: Person[]
 }) {
-  // sestav seznam kategorií přímo z projects
-  const categories = Array.from(new Set(projects.map(p => p.category)))
+  const [selectedCategory, setSelectedCategory] = useState<string>('all')
+  const [selectedPerson, setSelectedPerson]     = useState<string>('all')
 
-  const [selectedCategory, setSelectedCategory] = useState<string>('')
-  const [selectedPerson, setSelectedPerson]     = useState<string>('')
-
-  const filtered = projects.filter(r => {
-    const okCat = !selectedCategory || r.category === selectedCategory
-    const okPers = !selectedPerson || r.persons.some(p => p.id === selectedPerson)
-    return okCat && okPers
-  })
+  const filtered = projects.filter(r =>
+    (selectedCategory === 'all' || r.category === selectedCategory) &&
+    (selectedPerson === 'all'   || r.persons.some(p => p.id === selectedPerson))
+  )
 
   return (
     <main className={styles.container}>
       <h1 className={styles.title}>Reference</h1>
 
       <div className={styles.filterBar}>
+        {/* Kategorie filter */}
         <label htmlFor="filterCategory" className={styles.filterLabel}>
           Kategorie:
         </label>
@@ -57,14 +59,14 @@ export default function ClientReferences({
             setSelectedCategory(e.target.value)
           }
         >
-          <option value="">— Všechny kategorie —</option>
-          {categories.map(cat => (
-            <option key={cat} value={cat}>
-              {cat}
+          {CATEGORIES.map(c => (
+            <option key={c.value} value={c.value}>
+              {c.label}
             </option>
           ))}
         </select>
 
+        {/* Person filter */}
         <label htmlFor="filterPerson" className={styles.filterLabel}>
           Osoba:
         </label>
@@ -76,7 +78,7 @@ export default function ClientReferences({
             setSelectedPerson(e.target.value)
           }
         >
-          <option value="">— Všichni autoři —</option>
+          <option value="all">Vše</option>
           {persons.map(p => (
             <option key={p.id} value={p.id}>
               {p.name}
@@ -87,9 +89,6 @@ export default function ClientReferences({
 
       <div className={styles.galleryBar}>
         <div className={styles.galleryInner}>
-          {filtered.length === 0 && (
-            <p className={styles.noResults}>Žádné projekty k zobrazení.</p>
-          )}
           {filtered.map(r => (
             <div key={r.id} className={styles.card}>
               <div className={styles.cardImage}>
@@ -100,12 +99,11 @@ export default function ClientReferences({
                   sizes="(max-width: 600px) 100vw, 30vw"
                 />
               </div>
-              <div className={styles.cardInfo}>
-                <h3 className={styles.cardLabel}>{r.label}</h3>
-                <p className={styles.cardPersons}>
-                  {r.persons.map(p => p.name).join(', ')}
-                </p>
-              </div>
+              <button className={styles.cardButton}>
+                {r.label}
+                <br />
+                <small>{r.persons.map(p => p.name).join(', ')}</small>
+              </button>
             </div>
           ))}
         </div>

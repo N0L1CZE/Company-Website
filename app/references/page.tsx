@@ -6,9 +6,6 @@ export default async function ReferencesPage() {
     include: { persons: true },
     orderBy: { createdAt: 'desc' },
   })
-  const persons = await prisma.person.findMany({
-    orderBy: { name: 'asc' },
-  })
-
+  const persons = await prisma.person.findMany({ orderBy: { name: 'asc' } })
   return <ClientReferences projects={projects} persons={persons} />
 }
