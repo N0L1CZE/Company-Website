@@ -17,6 +17,7 @@ async function main() {
   const adminHash  = process.env.ADMIN_PASSWORD_HASH
 
   if (adminEmail && adminHash) {
+    const adminHash = await bcrypt.hash(adminPassword, 10)
     await prisma.user.upsert({
       where:  { email: adminEmail },
       update: { passwordHash: adminHash },
