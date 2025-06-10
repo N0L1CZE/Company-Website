@@ -1,4 +1,3 @@
-// app/references/ClientReferences.tsx
 'use client'
 
 import { useState, ChangeEvent } from 'react'
@@ -9,6 +8,7 @@ interface Person {
   id: string
   name: string
 }
+
 interface Reference {
   id: string
   label: string
@@ -17,8 +17,7 @@ interface Reference {
   persons: Person[]
 }
 
-// Seznam kategorií
-const CATEGORIES: string[] = [
+const CATEGORIES = [
   'Obytné a polyfunkční stavby',
   'Komerční a administrativní stavby',
   'Občanská vybavenost',
@@ -36,15 +35,20 @@ export default function ClientReferences({
   projects: Reference[]
   persons: Person[]
 }) {
-  // '' značí „nezafiltrovat“
   const [selectedCategory, setSelectedCategory] = useState<string>('')
-  const [selectedPerson, setSelectedPerson]     = useState<string>('')
+  const [selectedPersons, setSelectedPersons]   = useState<string[]>([])
 
-  // Filtrujeme podle kategorie i osoby najednou
-  const filtered = projects.filter((r) => {
-    const categoryMatch = selectedCategory === '' || r.category === selectedCategory
-    const personMatch   = selectedPerson   === '' || r.persons.some(p => p.id === selectedPerson)
-    return categoryMatch && personMatch
+  const togglePerson = (id: string) =>
+    setSelectedPersons(curr =>
+      curr.includes(id) ? curr.filter(x => x !== id) : [...curr, id]
+    )
+
+  const filtered = projects.filter(r => {
+    const okCat = !selectedCategory || r.category === selectedCategory
+    const okPers =
+      !selectedPersons.length ||
+      selectedPersons.every(id => r.persons.some(p => p.id === id))
+    return okCat && okPers
   })
 
   return (
@@ -52,7 +56,6 @@ export default function ClientReferences({
       <h1 className={styles.title}>Reference</h1>
 
       <div className={styles.filterBar}>
-        {/* Kategorie */}
         <label htmlFor="filterCategory" className={styles.filterLabel}>
           Kategorie:
         </label>
@@ -72,51 +75,44 @@ export default function ClientReferences({
           ))}
         </select>
 
-        {/* Osoba */}
-        <label htmlFor="filterPerson" className={styles.filterLabel}>
-          Osoba:
-        </label>
-        <select
-          id="filterPerson"
-          className={styles.filterSelect}
-          value={selectedPerson}
-          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-            setSelectedPerson(e.target.value)
-          }
-        >
-          <option value="">— Všichni autoři —</option>
+        <fieldset className={styles.filterFieldset}>
+          <legend>Autoři (zaškrtněte více):</legend>
           {persons.map(p => (
-            <option key={p.id} value={p.id}>
+            <label key={p.id} className={styles.filterCheckboxLabel}>
+              <input
+                type="checkbox"
+                checked={selectedPersons.includes(p.id)}
+                onChange={() => togglePerson(p.id)}
+              />{' '}
               {p.name}
-            </option>
+            </label>
           ))}
-        </select>
+        </fieldset>
       </div>
 
       <div className={styles.galleryBar}>
         <div className={styles.galleryInner}>
-          {filtered.length === 0 ? (
-            <p>Žádné projekty k zobrazení.</p>
-          ) : (
-            filtered.map(r => (
-              <div key={r.id} className={styles.card}>
-                <div className={styles.cardImage}>
-                  <Image
-                    src={r.src}
-                    alt={r.label}
-                    fill
-                    sizes="(max-width: 600px) 100vw, 30vw"
-                  />
-                </div>
-                <div className={styles.cardInfo}>
-                  <h3 className={styles.cardLabel}>{r.label}</h3>
-                  <p className={styles.cardPersons}>
-                    {r.persons.map(p => p.name).join(', ')}
-                  </p>
-                </div>
-              </div>
-            ))
+          {filtered.length === 0 && (
+            <p className={styles.noResults}>Žádné projekty k zobrazení.</p>
           )}
+          {filtered.map(r => (
+            <div key={r.id} className={styles.card}>
+              <div className={styles.cardImage}>
+                <Image
+                  src={r.src}
+                  alt={r.label}
+                  fill
+                  sizes="(max-width: 600px) 100vw, 30vw"
+                />
+              </div>
+              <div className={styles.cardInfo}>
+                <h3 className={styles.cardLabel}>{r.label}</h3>
+                <p className={styles.cardPersons}>
+                  {r.persons.map(p => p.name).join(', ')}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </main>
