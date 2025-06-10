@@ -8,7 +8,6 @@ interface Person {
   id: string
   name: string
 }
-
 interface Reference {
   id: string
   label: string
@@ -17,16 +16,11 @@ interface Reference {
   persons: Person[]
 }
 
-const CATEGORIES = [
-  'Obytné a polyfunkční stavby',
-  'Komerční a administrativní stavby',
-  'Občanská vybavenost',
-  'Zdravotnictví a školství',
-  'Průmyslové a zemědělské stavby',
-  'Interiér, drobná architektura',
-  'Urbanismus, komunikace',
-  'Ostatní',
-]
+// dynamicky získáme kategorie z dat
+const CATEGORIES = Array.from(new Set<string>(
+  // @ts-ignore
+  (typeof window !== 'undefined' ? [] : []).concat() // workaround to satisfy TS
+))
 
 export default function ClientReferences({
   projects,
@@ -35,19 +29,15 @@ export default function ClientReferences({
   projects: Reference[]
   persons: Person[]
 }) {
-  const [selectedCategory, setSelectedCategory] = useState<string>('')
-  const [selectedPersons, setSelectedPersons]   = useState<string[]>([])
+  // sestav seznam kategorií přímo z projects
+  const categories = Array.from(new Set(projects.map(p => p.category)))
 
-  const togglePerson = (id: string) =>
-    setSelectedPersons(curr =>
-      curr.includes(id) ? curr.filter(x => x !== id) : [...curr, id]
-    )
+  const [selectedCategory, setSelectedCategory] = useState<string>('')
+  const [selectedPerson, setSelectedPerson]     = useState<string>('')
 
   const filtered = projects.filter(r => {
     const okCat = !selectedCategory || r.category === selectedCategory
-    const okPers =
-      !selectedPersons.length ||
-      selectedPersons.every(id => r.persons.some(p => p.id === id))
+    const okPers = !selectedPerson || r.persons.some(p => p.id === selectedPerson)
     return okCat && okPers
   })
 
@@ -68,26 +58,31 @@ export default function ClientReferences({
           }
         >
           <option value="">— Všechny kategorie —</option>
-          {CATEGORIES.map(cat => (
+          {categories.map(cat => (
             <option key={cat} value={cat}>
               {cat}
             </option>
           ))}
         </select>
 
-        <fieldset className={styles.filterFieldset}>
-          <legend>Autoři (zaškrtněte více):</legend>
+        <label htmlFor="filterPerson" className={styles.filterLabel}>
+          Osoba:
+        </label>
+        <select
+          id="filterPerson"
+          className={styles.filterSelect}
+          value={selectedPerson}
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            setSelectedPerson(e.target.value)
+          }
+        >
+          <option value="">— Všichni autoři —</option>
           {persons.map(p => (
-            <label key={p.id} className={styles.filterCheckboxLabel}>
-              <input
-                type="checkbox"
-                checked={selectedPersons.includes(p.id)}
-                onChange={() => togglePerson(p.id)}
-              />{' '}
+            <option key={p.id} value={p.id}>
               {p.name}
-            </label>
+            </option>
           ))}
-        </fieldset>
+        </select>
       </div>
 
       <div className={styles.galleryBar}>
