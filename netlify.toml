@@ -1,21 +1,16 @@
 [build]
-  # runs CI install, generates Prisma client, runs migrations, seeds, builds
-  command   = """
-    npm ci &&
-    npx prisma generate &&
-    npx prisma migrate deploy &&
-    npm run seed &&
-    npm run build
-  """
   publish   = ".next"
+  command   = "npm ci && npx prisma generate && npm run seed && npm run build"
 
-[functions]
-  directory = ".netlify/functions-internal"
-  [functions.environment]
-    # pick up Neon’s pooled URL for runtime
-    DATABASE_URL        = "$NETLIFY_DATABASE_URL"
-    # pick up Neon’s direct unpooled URL for migrations/shadow
-    SHADOW_DATABASE_URL = "$NETLIFY_DATABASE_URL_UNPOOLED"
-    ADMIN_EMAIL         = "${ADMIN_EMAIL}"
-    ADMIN_PASSWORD_HASH = "${ADMIN_PASSWORD_HASH}"
-    JWT_SECRET          = "${JWT_SECRET}"
+[build.environment]
+  DATABASE_URL          = "postgresql://neondb_owner:npg_3XaCIKSHM9it@ep-cold-flower-a575rvtu-pooler.us-east-2.aws.neon.tech/neondb?sslmode=require"
+  ADMIN_EMAIL           = "admin@admin.cz"
+  ADMIN_PASSWORD_HASH   = "$ADMIN_PASSWORD_HASH"   # Netlify UI injectne hodnotu
+  JWT_SECRET            = "$JWT_SECRET"
+
+[functions.environment]
+  # funkční váhy pro serverless (pokud je potřebujete):
+  DATABASE_URL          = "$DATABASE_URL"
+  ADMIN_EMAIL           = "$ADMIN_EMAIL"
+  ADMIN_PASSWORD_HASH   = "$ADMIN_PASSWORD_HASH"
+  JWT_SECRET            = "$JWT_SECRET"
