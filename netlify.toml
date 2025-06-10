@@ -1,19 +1,21 @@
-# netlify.toml
 [build]
+  # runs CI install, generates Prisma client, runs migrations, seeds, builds
+  command   = """
+    npm ci &&
+    npx prisma generate &&
+    npx prisma migrate deploy &&
+    npm run seed &&
+    npm run build
+  """
   publish   = ".next"
-  command = "npm ci && npx prisma generate && npx prisma migrate deploy && cp dev.db .netlify/functions-internal/ && npm run seed && npm run build"
-
-[build.environment]
-  ADMIN_EMAIL         = "admin@admin.cz"
-  ADMIN_PASSWORD_HASH = "$2b$10$He3p70nk2etn9p3fF.Auo.ZUuGqy.9oBM5ab8jpDoGKPY2DKZyyZO" 
-  DATABASE_URL        = "file:./dev.db"
-  JWT_SECRET          = "abcd1234"
 
 [functions]
   directory = ".netlify/functions-internal"
-
   [functions.environment]
-  ADMIN_EMAIL           = "admin@admin.cz"
-  ADMIN_PASSWORD_HASH   = "$2b$10$He3p70nk2etn9p3fF.Auo.ZUuGqy.9oBM5ab8jpDoGKPY2DKZyyZO"
-  DATABASE_URL = "file:./.netlify/functions-internal/dev.db"
-  JWT_SECRET            = "abcd1234"
+    # pick up Neon’s pooled URL for runtime
+    DATABASE_URL        = "$NETLIFY_DATABASE_URL"
+    # pick up Neon’s direct unpooled URL for migrations/shadow
+    SHADOW_DATABASE_URL = "$NETLIFY_DATABASE_URL_UNPOOLED"
+    ADMIN_EMAIL         = "${ADMIN_EMAIL}"
+    ADMIN_PASSWORD_HASH = "${ADMIN_PASSWORD_HASH}"
+    JWT_SECRET          = "${JWT_SECRET}"
