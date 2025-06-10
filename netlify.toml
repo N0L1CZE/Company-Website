@@ -1,9 +1,9 @@
 [build]
-  command   = "npm ci && npx prisma migrate deploy && npx prisma generate && npm run seed && npm run build"
   publish   = ".next"
-  environment = { 
-    ADMIN_EMAIL         = "admin@admin.cz",
-    ADMIN_PASSWORD_HASH = "$2a$10$aDUEh1Hw6fWbl7.ZKLBfGOLyfn.9kwOiFJOmS2utLsYxEJSZb2a1.",
-    DATABASE_URL        = "file:./dev.db",
-    JWT_SECRET          = "abcd1234"
-  }
+  command   = "npm ci && npx prisma migrate deploy && npx prisma generate && npm run seed && npm run build"
+
+[build.environment]
+  ADMIN_EMAIL         = "admin@admin.cz"
+  ADMIN_PASSWORD_HASH = "$2a$10$aDUEh1Hw6fWbl7.ZKLBfGOLyfn.9kwOiFJOmS2utLsYxEJSZb2a1."
+  DATABASE_URL        = "file:./dev.db"
+  JWT_SECRET          = "abcd1234"
