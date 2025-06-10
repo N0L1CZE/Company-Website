@@ -8,52 +8,48 @@ export default async function handler(
   res: NextApiResponse
 ) {
   try {
-    // 1) Jen POST povoleno
     if (req.method !== 'POST') {
       res.setHeader('Allow', ['POST'])
       return res.status(405).json({ error: 'Method Not Allowed' })
     }
 
-    // 2) Načteme tělo
-    const { email, password } = req.body as {
-      email?: string
-      password?: string
-    }
-
+    const { email, password } = req.body as { email?: string; password?: string }
     if (!email || !password) {
       return res.status(400).json({ error: 'Vyplň e-mail i heslo' })
     }
 
-    // 3) Najdeme uživatele
+    // 1) fetch user
     const user = await prisma.user.findUnique({ where: { email } })
     if (!user) {
       return res.status(401).json({ error: 'Neplatné přihlašovací údaje' })
     }
 
-    // 4) Ověříme heslo
+    // 2) check password
     const valid = await bcrypt.compare(password, user.passwordHash)
     if (!valid) {
       return res.status(401).json({ error: 'Neplatné přihlašovací údaje' })
     }
 
-    // 5) Vygenerujeme JWT
-    const token = sign(
-      { userId: user.id, email: user.email },
-      process.env.JWT_SECRET!,
-      { expiresIn: '2h' }
-    )
+    // 3) sign JWT
+    const secret = process.env.JWT_SECRET
+    if (!secret) {
+      throw new Error('🔑 Missing JWT_SECRET')
+    }
 
-    // 6) Nastavíme cookie
+    const token = sign({ userId: user.id, email: user.email }, secret, {
+      expiresIn: '2h',
+    })
+
+    // 4) set cookie (no Secure during preview)
+    const secureFlag = process.env.NODE_ENV === 'production' ? '; Secure' : ''
     res.setHeader(
       'Set-Cookie',
-      `auth_token=${token}; Path=/; HttpOnly; SameSite=Lax; Secure`
+      `auth_token=${token}; Path=/; HttpOnly; SameSite=Lax${secureFlag}`
     )
 
-    // 7) Vrátíme úspěch
     return res.status(200).json({ ok: true })
-  } catch (error) {
-    // 8) Ošetření neočekávané chyby – vždy validní JSON
-    console.error('💥 /api/auth/login error:', error)
-    return res.status(500).json({ error: 'Internal Server Error' })
+  } catch (e: any) {
+    console.error('💥 login error:', e)
+    return res.status(500).json({ error: e.message || 'Internal Server Error' })
   }
 }
