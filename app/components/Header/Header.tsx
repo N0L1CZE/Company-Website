@@ -56,11 +56,13 @@ export function Header() {
               Reference
             </Link>
             <div className={styles.navDropdown}>
-              <Link href="/our-work" onClick={() => setMenuOpen(false)} className={styles.navLink}>
-                Naše práce
-              </Link>
-              
+            <Link href="/our-work" onClick={() => setMenuOpen(false)} className={styles.navLink}>
+              Naše práce
+            </Link>
             </div>
+            <Link href="/portfolio" onClick={() => setMenuOpen(false)} className={styles.navLink}>
+              Portfolio
+            </Link>
             <Link href="/contacts" onClick={() => setMenuOpen(false)} className={styles.navLink}>
               Kontakt
             </Link>
