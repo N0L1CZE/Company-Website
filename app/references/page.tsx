@@ -1,5 +1,9 @@
+// app/references/page.tsx
 import ClientReferences from './ClientReferences'
 import { prisma } from '@/lib/prisma'
+
+// ⬇️ toto zajistí, že stránka nebude cacheovaná
+export const dynamic = 'force-dynamic'
 
 export default async function ReferencesPage() {
   const projects = await prisma.reference.findMany({
