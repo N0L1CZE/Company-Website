@@ -13,9 +13,9 @@ export default function Home() {
   ];
 
   const projects = [
-    { src: '/proj1.jpg', label: 'Základní škola Morkovice-Slížany' },
-    { src: '/proj2.jpg', label: 'Městský úřad Uherské Hradiště' },
-    { src: '/proj3.jpg', label: 'Sídlo firmy Luxusní Elektronika A. S.' },
+    { src: '/proj1.jpg', label: 'Centrální objekty Uherskohradištské nemocnice' },
+    { src: '/proj2.jpg', label: 'Podnikatelský inkubátor - Kunovice' },
+    { src: '/proj3.jpg', label: 'Výrobní areál EVPU - Uherské Hradiště' },
   ];
 
   return (
