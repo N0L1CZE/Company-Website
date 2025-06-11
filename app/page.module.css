@@ -794,3 +794,17 @@
     text-align: left !important;
   }
 }
+
+@media (max-width: 768px) {
+  .ctaButtons {
+    flex-wrap: wrap;        /* dovolí zalamování tlačítek do více řádků */
+    justify-content: center;/* zarovnání na střed */
+    gap: 1rem;              /* prostor mezi nimi */
+    width: 100%;            /* roztáhnout se na plnou šířku kontejneru */
+  }
+  .ctaButtonContact,
+  .ctaPhoneButton {
+    flex: 1 1 100%;         /* každé tlačítko zabere celý řádek */
+    max-width: none;
+  }
+}
