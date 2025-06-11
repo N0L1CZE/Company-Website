@@ -1,22 +1,26 @@
 // pages/api/references/[id].ts
 import type { NextApiRequest, NextApiResponse } from 'next'
-import formidable from 'formidable'
+import formidable, { File as FormidableFile, Files, Fields } from 'formidable'
 import { v2 as cloudinary } from 'cloudinary'
 import { prisma } from '@/lib/prisma'
 
-// Disable Next.js built-in body parser
+// Disable built-in body parser
 export const config = { api: { bodyParser: false } }
 
-// Cloudinary secure config
-cloudinary.config({ secure: true })
+// Explicitní načtení z env
+cloudinary.config({
+  cloud_name:  process.env.CLOUDINARY_CLOUD_NAME,
+  api_key:     process.env.CLOUDINARY_API_KEY,
+  api_secret:  process.env.CLOUDINARY_API_SECRET,
+  secure:      true,
+})
 
-async function parseForm(req: NextApiRequest) {
+async function parseForm(req: NextApiRequest): Promise<{ fields: Fields; files: Files }> {
   const form = formidable({ keepExtensions: true })
-  return new Promise<{ fields: formidable.Fields; files: formidable.Files }>(
-    (resolve, reject) =>
-      form.parse(req as any, (err, fields, files) =>
-        err ? reject(err) : resolve({ fields, files })
-      )
+  return new Promise((resolve, reject) =>
+    form.parse(req as any, (err, fields, files) =>
+      err ? reject(err) : resolve({ fields, files })
+    )
   )
 }
 
@@ -28,7 +32,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   switch (req.method) {
-    // GET one by id
+    // GET one
     case 'GET': {
       const reference = await prisma.reference.findUnique({
         where: { id },
@@ -44,35 +48,39 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     case 'PUT': {
       try {
         const { fields, files } = await parseForm(req)
+
         const label    = Array.isArray(fields.label)    ? fields.label[0]    : (fields.label ?? '')
         const category = Array.isArray(fields.category) ? fields.category[0] : (fields.category ?? '')
         let personIds  = fields.personIds ?? []
         if (!Array.isArray(personIds)) personIds = [personIds]
         personIds = personIds.map(String)
 
-        // načti starou referenci pro případné smazání obrázku
+        // načti starou referenci
         const old = await prisma.reference.findUnique({ where: { id } })
         let src = old?.src
 
-        const upload = files.file
-        if (upload) {
-          const file = Array.isArray(upload) ? upload[0] : upload
-          // smaž starý obrázek
+        // z files.file může být undefined, File nebo File[]
+        const uploadField = files.file
+        if (uploadField) {
+          const file: FormidableFile = Array.isArray(uploadField)
+            ? uploadField[0]
+            : uploadField
+
+          // smaž starý obrázek, pokud existuje
           if (old?.src) {
-            const match = old.src.match(/\/references\/([^.?/]+)/)
-            if (match) {
-              const oldPublicId = `references/${match[1]}`
-              await cloudinary.uploader.destroy(oldPublicId).catch(err => {
-                console.warn('Cloudinary destroy failed:', err)
-              })
+            const m = old.src.match(/\/references\/([^.?/]+)/)
+            if (m) {
+              await cloudinary.uploader.destroy(`references/${m[1]}`)
+                .catch(err => console.warn('Cloudinary destroy failed:', err))
             }
           }
+
           // nahraj nový
           // @ts-ignore
-          const result = await cloudinary.uploader.upload(file.filepath, {
+          const up = await cloudinary.uploader.upload(file.filepath, {
             folder: 'references',
           })
-          src = result.secure_url
+          src = up.secure_url
         }
 
         const updated = await prisma.reference.update({
@@ -97,12 +105,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       try {
         const old = await prisma.reference.findUnique({ where: { id } })
         if (old?.src) {
-          const match = old.src.match(/\/references\/([^.?/]+)/)
-          if (match) {
-            const publicId = `references/${match[1]}`
-            await cloudinary.uploader.destroy(publicId).catch(err => {
-              console.warn('Cloudinary destroy failed:', err)
-            })
+          const m = old.src.match(/\/references\/([^.?/]+)/)
+          if (m) {
+            await cloudinary.uploader.destroy(`references/${m[1]}`)
+              .catch(err => console.warn('Cloudinary destroy failed:', err))
           }
         }
         await prisma.reference.delete({ where: { id } })

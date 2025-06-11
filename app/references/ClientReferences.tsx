@@ -1,8 +1,9 @@
+// components/ClientReferences.tsx
 'use client'
 
 import { useState, ChangeEvent } from 'react'
 import Image from 'next/image'
-import styles from './page.module.css'
+import styles from './ClientReferences.module.css'
 
 interface Person {
   id: string
@@ -17,14 +18,14 @@ interface Reference {
 }
 
 const CATEGORIES = [
-  { value: 'Obytné a polyfunkční stavby',         label: 'Obytné a polyfunkční stavby' },
-  { value: 'Komerční a administrativní stavby',   label: 'Komerční a administrativní stavby' },
-  { value: 'Občanská vybavenost',                 label: 'Občanská vybavenost' },
-  { value: 'Zdravotnictví a školství',            label: 'Zdravotnictví a školství' },
-  { value: 'Průmyslové a zemědělské stavby',       label: 'Průmyslové a zemědělské stavby' },
-  { value: 'Interiér, drobná architektura',       label: 'Interiér, drobná architektura' },
-  { value: 'Urbanismus, komunikace',              label: 'Urbanismus, komunikace' },
-  { value: 'Ostatní',                             label: 'Ostatní' },
+  { value: 'Obytné a polyfunkční stavby',       label: 'Obytné a polyfunkční stavby' },
+  { value: 'Komerční a administrativní stavby', label: 'Komerční a administrativní stavby' },
+  { value: 'Občanská vybavenost',               label: 'Občanská vybavenost' },
+  { value: 'Zdravotnictví a školství',          label: 'Zdravotnictví a školství' },
+  { value: 'Průmyslové a zemědělské stavby',     label: 'Průmyslové a zemědělské stavby' },
+  { value: 'Interiér, drobná architektura',     label: 'Interiér, drobná architektura' },
+  { value: 'Urbanismus, komunikace',            label: 'Urbanismus, komunikace' },
+  { value: 'Ostatní',                           label: 'Ostatní' },
 ]
 
 export default function ClientReferences({
@@ -47,7 +48,6 @@ export default function ClientReferences({
       <h1 className={styles.title}>Reference</h1>
 
       <div className={styles.filterBar}>
-        {/* Kategorie filter */}
         <label htmlFor="filterCategory" className={styles.filterLabel}>
           Kategorie:
         </label>
@@ -67,7 +67,6 @@ export default function ClientReferences({
           ))}
         </select>
 
-        {/* Person filter */}
         <label htmlFor="filterPerson" className={styles.filterLabel}>
           Osoba:
         </label>
@@ -96,8 +95,9 @@ export default function ClientReferences({
                 <Image
                   src={r.src}
                   alt={r.label}
-                  fill
-                  sizes="(max-width: 600px) 100vw, 30vw"
+                  width={600}
+                  height={400}
+                  style={{ objectFit: 'cover' }}
                 />
               </div>
               <button className={styles.cardButton}>
