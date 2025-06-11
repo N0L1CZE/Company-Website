@@ -59,6 +59,7 @@ export default function ClientReferences({
             setSelectedCategory(e.target.value)
           }
         >
+          <option value="all">— Všechny typy staveb —</option>
           {CATEGORIES.map(c => (
             <option key={c.value} value={c.value}>
               {c.label}
