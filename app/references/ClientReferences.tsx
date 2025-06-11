@@ -1,4 +1,3 @@
-// app/references/ClientReferences.tsx
 'use client'
 
 import { useState, ChangeEvent } from 'react'
@@ -18,14 +17,14 @@ interface Reference {
 }
 
 const CATEGORIES = [
-  { value: 'Obytné a polyfunkční stavby',         label: 'Obytné a polyfunkční stavby' },
-  { value: 'Komerční a administrativní stavby',   label: 'Komerční a administrativní stavby' },
-  { value: 'Občanská vybavenost',                 label: 'Občanská vybavenost' },
-  { value: 'Zdravotnictví a školství',            label: 'Zdravotnictví a školství' },
-  { value: 'Průmyslové a zemědělské stavby',       label: 'Průmyslové a zemědělské stavby' },
-  { value: 'Interiér, drobná architektura',       label: 'Interiér, drobná architektura' },
-  { value: 'Urbanismus, komunikace',              label: 'Urbanismus, komunikace' },
-  { value: 'Ostatní',                             label: 'Ostatní' },
+  { value: 'Obytné a polyfunkční stavby',       label: 'Obytné a polyfunkční stavby' },
+  { value: 'Komerční a administrativní stavby', label: 'Komerční a administrativní stavby' },
+  { value: 'Občanská vybavenost',               label: 'Občanská vybavenost' },
+  { value: 'Zdravotnictví a školství',          label: 'Zdravotnictví a školství' },
+  { value: 'Průmyslové a zemědělské stavby',     label: 'Průmyslové a zemědělské stavby' },
+  { value: 'Interiér, drobná architektura',     label: 'Interiér, drobná architektura' },
+  { value: 'Urbanismus, komunikace',            label: 'Urbanismus, komunikace' },
+  { value: 'Ostatní',                           label: 'Ostatní' },
 ]
 
 export default function ClientReferences({
@@ -40,7 +39,7 @@ export default function ClientReferences({
 
   const filtered = projects.filter(r =>
     (selectedCategory === 'all' || r.category === selectedCategory) &&
-    (selectedPerson === 'all'   || r.persons.some(p => p.id === selectedPerson))
+    (selectedPerson  === 'all'  || r.persons.some(p => p.id === selectedPerson))
   )
 
   return (
@@ -60,6 +59,8 @@ export default function ClientReferences({
             setSelectedCategory(e.target.value)
           }
         >
+          {/* ----- přidaná položka „Vše“ ----- */}
+          <option value="all">Vše</option>
           {CATEGORIES.map(c => (
             <option key={c.value} value={c.value}>
               {c.label}
