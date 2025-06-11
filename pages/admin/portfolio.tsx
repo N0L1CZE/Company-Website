@@ -119,26 +119,36 @@ export default function AdminPortfolio() {
 
             {/* formulář pro přidání PDF */}
             <form onSubmit={handleSubmit(person.id)} className="space-y-2">
-              <input
-                type="text"
-                placeholder="Název PDF"
-                value={titles[person.id] || ''}
-                onChange={handleTitleChange(person.id)}
-                className="w-full border rounded p-1"
-              />
-              <input
-                type="pdf"
-                accept="application/pdf"
-                onChange={handleFileChange(person.id)}
-                className="w-full"
-              />
-              <button
-                type="submit"
-                className="w-full mt-2 py-1 rounded bg-blue-600 text-white hover:bg-blue-700"
-              >
-                Přidat
-              </button>
-            </form>
+  {/* název */}
+  <input
+    type="text"
+    placeholder="Název PDF"
+    value={titles[person.id] || ''}
+    onChange={handleTitleChange(person.id)}
+    className="w-full border rounded p-1"
+  />
+
+  {/* --- nový, viditelný file-input --- */}
+  <input
+    name="pdf"
+    type="file"
+    accept="application/pdf"
+    onChange={handleFileChange(person.id)}
+    /* ↓ tyto Tailwind utility zajistí, že je prvek blokový a má styl */
+    className="
+      block w-full text-sm
+      file:mr-4 file:rounded file:border-0
+      file:bg-blue-600 file:px-4 file:py-2 file:text-white
+      hover:file:bg-blue-700
+    "
+  />
+                <button
+    type="submit"
+    className="w-full mt-2 py-1 rounded bg-blue-600 text-white hover:bg-blue-700"
+  >
+    Přidat
+  </button>
+</form>
           </div>
         ))}
       </div>
