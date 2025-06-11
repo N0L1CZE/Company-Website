@@ -28,7 +28,7 @@ export default function ForProjectPage() {
 
           <div className={styles.imageWrapper}>
             <Image
-              src="/engineer-cinnost.jpg"
+              src="/1.jpg"
               alt="Projektová činnost"
               width={550}
               height={367}

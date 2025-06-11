@@ -26,7 +26,7 @@ export default function AuthorPage() {
 
           <div className={styles.imageWrapper}>
             <Image
-              src="/engineer-cinnost.jpg"
+              src="/5.jpg"
               alt="Projektová činnost"
               width={550}
               height={367}

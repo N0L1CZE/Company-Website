@@ -20,7 +20,7 @@ export default function DocumentationPage() {
 
           <div className={styles.imageWrapper}>
             <Image
-              src="/engineer-cinnost.jpg"
+              src="/4.jpg"
               alt="Projektová činnost"
               width={550}
               height={367}

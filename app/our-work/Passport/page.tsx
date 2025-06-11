@@ -23,7 +23,7 @@ export default function PassportPage() {
         </div>
         <div className={styles.imageWrapper}>
           <Image
-            src="/passportisation.jpg"
+            src="/2.jpg"
             alt="Pasportizace objektů"
             width={550}
             height={367}
