@@ -19,28 +19,27 @@ model Reference {
   label     String
   src       String
   category  String
-  persons   Person[]   @relation("ReferencePersons")
+  persons   Person[]   @relation("ReferencePersons")  // beze změny
   createdAt DateTime   @default(now())
 }
 
+model PortfolioItem {
+  id        Int       @id @default(autoincrement())
+  title     String
+  pdfUrl    String
+  persons   Person[]  @relation("PortfolioPersons")   // ⇐ M:N
+  createdAt DateTime  @default(now())
+}
+
 model Person {
-  id         String      @id @default(cuid())
-  name       String      @unique
-  references Reference[] @relation("ReferencePersons")
-  portfolioItems PortfolioItem[] 
+  id             String          @id @default(cuid())
+  name           String          @unique
+  references     Reference[]     @relation("ReferencePersons")   // beze změny
+  portfolioItems PortfolioItem[] @relation("PortfolioPersons")   // ⇐ M:N
 }
 
 model ContactText {
-  id       String   @id @default(cuid())
-  key      String   @unique        // např. "contact.header", "contact.emailLabel"…
-  content  String
-}
-
-model PortfolioItem {
-  id        Int      @id @default(autoincrement())
-  title     String
-  pdfUrl    String
-  person    Person   @relation(fields: [personId], references: [id])
-  personId  String
-  createdAt DateTime @default(now())
+  id      String @id @default(cuid())
+  key     String @unique
+  content String
 }
