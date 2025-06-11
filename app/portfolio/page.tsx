@@ -45,9 +45,6 @@ export default async function PortfolioPage() {
                       {item.title}
                     </a>
                     <br />
-                    <small className="text-gray-600">
-                      {item.persons.map(p => p.name).join(', ')}
-                    </small>
                   </li>
                 ))
               ) : (
