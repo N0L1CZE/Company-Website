@@ -127,7 +127,7 @@ export default function AdminPortfolio() {
                 className="w-full border rounded p-1"
               />
               <input
-                type="file"
+                type="pdf"
                 accept="application/pdf"
                 onChange={handleFileChange(person.id)}
                 className="w-full"
