@@ -1,11 +1,10 @@
+// pages/api/references/[id].ts
 import type { NextApiRequest, NextApiResponse } from 'next'
 import formidable from 'formidable'
-import fs from 'fs'
-import path from 'path'
 import { v2 as cloudinary } from 'cloudinary'
 import { prisma } from '@/lib/prisma'
 
-// Disable Next.js body parser
+// Disable Next.js built-in body parser
 export const config = { api: { bodyParser: false } }
 
 // Cloudinary picks up CLOUDINARY_URL
@@ -26,7 +25,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const id  = Array.isArray(raw) ? raw[0] : raw
   if (!id) return res.status(400).json({ error: 'Chybí ID' })
 
-  // Update existing reference
+  // PUT /api/references/[id]
   if (req.method === 'PUT') {
     try {
       const { fields, files } = await parseForm(req)
@@ -37,19 +36,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       if (!Array.isArray(personIds)) personIds = [personIds]
       personIds = personIds.map(String)
 
-      // Fetch old to remove old image if replaced
+      // Fetch existing reference to get old src
       const old = await prisma.reference.findUnique({ where: { id } })
       let src = old?.src
 
       const upload = files.file
       if (upload) {
         const file = Array.isArray(upload) ? upload[0] : upload
-        // delete old file from Cloudinary? (optional)
-        // upload new one
+        // Upload new image
         // @ts-ignore
-        const result = await cloudinary.uploader.upload(file.filepath, {
-          folder: 'references',
-        })
+        const result = await cloudinary.uploader.upload(file.filepath, { folder: 'references' })
         src = result.secure_url
       }
 
@@ -59,9 +55,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
           label,
           category,
           src,
-          persons: {
-            set: personIds.map(pid => ({ id: pid })),
-          },
+          persons: { set: personIds.map(pid => ({ id: pid })) },
         },
         include: { persons: true },
       })
@@ -72,13 +66,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
   }
 
-  // Delete reference
+  // DELETE /api/references/[id]
   if (req.method === 'DELETE') {
     try {
       const old = await prisma.reference.findUnique({ where: { id } })
       if (old) {
-        // Optionally destroy old image from Cloudinary
-        // await cloudinary.uploader.destroy( public_id from URL )
+        // Extract public_id from Cloudinary URL: path after '/references/' without extension
+        const pathParts = old.src.split('/references/')
+        if (pathParts[1]) {
+          const [fileWithExt] = pathParts[1].split('?')[0].split('/')
+          const publicIdWithFolder = `references/${fileWithExt.replace(/\.[^/.]+$/, '')}`
+          await cloudinary.uploader.destroy(publicIdWithFolder).catch(err => {
+            console.warn('Cloudinary destroy failed:', err)
+          })
+        }
+        // Delete DB record
         await prisma.reference.delete({ where: { id } })
       }
       return res.status(200).json({ ok: true })
