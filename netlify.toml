@@ -1,6 +1,6 @@
 [build]
-  publish   = ".next"
-  command = "npm ci && npx prisma generate && npx prisma migrate deploy && npm run build"
+  command = "npm ci && npx prisma generate && PRISMA_MIGRATE_SKIP_LOCKS=true npx prisma migrate deploy && npm run build"
+  publish = ".next"
 
 [build.environment]
   # pro build
