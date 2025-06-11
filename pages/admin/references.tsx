@@ -19,14 +19,14 @@ interface Reference {
 }
 
 const CATEGORIES = [
-  { value: 'Obytné a polyfunkční stavby',         label: 'Obytné a polyfunkční stavby' },
-  { value: 'Komerční a administrativní stavby',   label: 'Komerční a administrativní stavby' },
-  { value: 'Občanská vybavenost',                 label: 'Občanská vybavenost' },
-  { value: 'Zdravotnictví a školství',            label: 'Zdravotnictví a školství' },
-  { value: 'Průmyslové a zemědělské stavby',       label: 'Průmyslové a zemědělské stavby' },
-  { value: 'Interiér, drobná architektura',       label: 'Interiér, drobná architektura' },
-  { value: 'Urbanismus, komunikace',              label: 'Urbanismus, komunikace' },
-  { value: 'Ostatní',                             label: 'Ostatní' },
+  'Obytné a polyfunkční stavby',
+  'Komerční a administrativní stavby',
+  'Občanská vybavenost',
+  'Zdravotnictví a školství',
+  'Průmyslové a zemědělské stavby',
+  'Interiér, drobná architektura',
+  'Urbanismus, komunikace',
+  'Ostatní',
 ]
 
 const emptyForm = {
@@ -44,29 +44,24 @@ export default function AdminReferences({
   personsList: Person[]
   initialRefs: Reference[]
 }) {
-  const [refs, setRefs]             = useState<Reference[]>(initialRefs)
-  const [form, setForm]             = useState<typeof emptyForm>(emptyForm)
-  const [file, setFile]             = useState<File | null>(null)
-  const [isEditing, setIsEditing]   = useState(false)
-  const [loading, setLoading]       = useState(false)
+  const [refs, setRefs]           = useState<Reference[]>(initialRefs)
+  const [form, setForm]           = useState<typeof emptyForm>(emptyForm)
+  const [file, setFile]           = useState<File | null>(null)
+  const [isEditing, setIsEditing] = useState(false)
+  const [loading, setLoading]     = useState(false)
   const router = useRouter()
 
-  // funkce pro načtení všech referencí
+  // Cloudinary unsigned upload preset and cloud name
+  const CLOUD_NAME   = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME!
+  const UPLOAD_PRESET = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET!
+
   const fetchRefs = async () => {
     setLoading(true)
-    const res = await fetch('/api/references', {
-      credentials: 'include',
-    })
-    if (res.ok) {
-      const data = (await res.json()) as Reference[]
-      setRefs(data)
-    } else {
-      console.error('Chyba při načítání referencí:', await res.text())
-    }
+    const res = await fetch('/api/references', { credentials: 'include' })
+    if (res.ok) setRefs(await res.json())
     setLoading(false)
   }
 
-  // při prvním vykreslení nastavíme refs z initialRefs
   useEffect(() => {
     setRefs(initialRefs)
   }, [initialRefs])
@@ -88,24 +83,50 @@ export default function AdminReferences({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    const url    = isEditing ? `/api/references/${form.id}` : '/api/references'
-    const method = isEditing ? 'PUT' : 'POST'
-    const fd     = new FormData()
-    fd.append('label', form.label)
-    fd.append('category', form.category)
-    form.personIds.forEach(id => fd.append('personIds', id))
-    if (file) fd.append('file', file)
+    if (!form.label || !form.category || form.personIds.length === 0 || (!file && !isEditing)) {
+      return alert('Vyplň název, kategorii, osoby a vyber obrázek')
+    }
 
     setLoading(true)
+
+    // 1) Upload the file to Cloudinary first
+    let src = form.src
+    if (file) {
+      const data = new FormData()
+      data.append('file', file)
+      data.append('upload_preset', UPLOAD_PRESET)
+
+      const uploadRes = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/upload`,
+        { method: 'POST', body: data }
+      )
+      if (!uploadRes.ok) {
+        setLoading(false)
+        return alert('Chyba při nahrávání obrázku')
+      }
+      const uploadJson = await uploadRes.json()
+      src = uploadJson.secure_url
+    }
+
+    // 2) Send JSON payload to our API
+    const payload = {
+      label: form.label,
+      category: form.category,
+      personIds: form.personIds,
+      src,
+    }
+
+    const url    = isEditing ? `/api/references/${form.id}` : '/api/references'
+    const method = isEditing ? 'PUT' : 'POST'
     const res = await fetch(url, {
       method,
       credentials: 'include',
-      body: fd,
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
     })
     setLoading(false)
 
     if (res.ok) {
-      // místo setRefs(updated) znovu načteme celé pole
       await fetchRefs()
       setForm(emptyForm)
       setFile(null)
@@ -118,11 +139,11 @@ export default function AdminReferences({
 
   const startEdit = (r: Reference) => {
     setForm({
-      id:        r.id,
-      label:     r.label,
-      category:  r.category,
-      src:       r.src,
-      personIds: r.persons.map(p => p.id),
+      id:       r.id,
+      label:    r.label,
+      category: r.category,
+      src:      r.src,
+      personIds:r.persons.map(p => p.id),
     })
     setFile(null)
     setIsEditing(true)
@@ -154,39 +175,21 @@ export default function AdminReferences({
         Logout
       </button>
 
-      <form
-        onSubmit={handleSubmit}
-        style={{
-          margin: '2rem 0',
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '1rem',
-        }}
-      >
+      <form onSubmit={handleSubmit} style={{ margin: '2rem 0', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
         <h2>{isEditing ? 'Upravit' : 'Nová'} reference</h2>
 
         <label>
           Název:
-          <input
-            name="label"
-            value={form.label}
-            onChange={handleChange}
-            required
-          />
+          <input name="label" value={form.label} onChange={handleChange} required />
         </label>
 
         <label>
           Kategorie:
-          <select
-            name="category"
-            value={form.category}
-            onChange={handleChange}
-            required
-          >
+          <select name="category" value={form.category} onChange={handleChange} required>
             <option value="">— vyberte —</option>
             {CATEGORIES.map(c => (
-              <option key={c.value} value={c.value}>
-                {c.label}
+              <option key={c} value={c}>
+                {c}
               </option>
             ))}
           </select>
@@ -196,64 +199,27 @@ export default function AdminReferences({
           <legend>Osoby (1–4):</legend>
           {personsList.map(p => (
             <label key={p.id} style={{ display: 'block' }}>
-              <input
-                type="checkbox"
-                checked={form.personIds.includes(p.id)}
-                onChange={() => togglePerson(p.id)}
-              />{' '}
-              {p.name}
+              <input type="checkbox" checked={form.personIds.includes(p.id)} onChange={() => togglePerson(p.id)} /> {p.name}
             </label>
           ))}
         </fieldset>
 
         <label>
           Obrázek:
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleFile}
-            {...(!isEditing && { required: true })}
-          />
+          <input type="file" accept="image/*" onChange={handleFile} required={!isEditing} />
         </label>
-        {isEditing && form.src && (
-          <small>Aktuální: {form.src}</small>
-        )}
+        {isEditing && form.src && <small>Aktuální: {form.src}</small>}
 
-        <button
-          type="submit"
-          style={{
-            padding: '0.75rem 1rem',
-            background: '#0070f3',
-            color: '#fff',
-            border: 'none',
-            borderRadius: 4,
-            cursor: 'pointer',
-          }}
-        >
+        <button type="submit" style={{ padding: '0.75rem 1rem', background: '#0070f3', color: '#fff', border: 'none', borderRadius: 4, cursor: 'pointer' }}>
           {isEditing ? 'Uložit' : 'Vytvořit'}
         </button>
-        {isEditing && (
-          <button
-            type="button"
-            onClick={() => {
-              setForm(emptyForm)
-              setFile(null)
-              setIsEditing(false)
-            }}
-          >
-            Zrušit
-          </button>
-        )}
+        {isEditing && <button type="button" onClick={() => { setForm(emptyForm); setFile(null); setIsEditing(false) }}>Zrušit</button>}
       </form>
 
       {loading ? (
         <p>Načítám…</p>
       ) : (
-        <table
-          border={1}
-          cellPadding={8}
-          style={{ width: '100%', borderCollapse: 'collapse' }}
-        >
+        <table border={1} cellPadding={8} style={{ width: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr>
               <th>Název</th>
@@ -267,13 +233,7 @@ export default function AdminReferences({
             {refs.map(r => (
               <tr key={r.id}>
                 <td>{r.label}</td>
-                <td>
-                  <img
-                    src={r.src}
-                    alt={r.label}
-                    style={{ width: 100, objectFit: 'cover' }}
-                  />
-                </td>
+                <td><img src={r.src} alt={r.label} style={{ width: 100, objectFit: 'cover' }} /></td>
                 <td>{r.category}</td>
                 <td>{r.persons.map(p => p.name).join(', ')}</td>
                 <td>
@@ -286,7 +246,7 @@ export default function AdminReferences({
         </table>
       )}
     </main>
-  )
+)
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
@@ -311,7 +271,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   return {
     props: {
       personsList: personsList.map(p => ({ id: p.id, name: p.name })),
-      initialRefs: refs.map(r => ({
+      initialRefs  : refs.map(r => ({
         id:       r.id,
         label:    r.label,
         src:      r.src,
