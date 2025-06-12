@@ -1,4 +1,5 @@
 // app/contacts/ContactClient.tsx
+'use client'
 export const metadata = {
   title: 'Forhaus UH | Kontakt',
   description:
@@ -35,8 +36,6 @@ export const metadata = {
     site: '@forhausuh'
   }
 }
-
-'use client'
 
 import styles from './page.module.css'
 import React, { Fragment } from 'react'

@@ -1,5 +1,4 @@
 'use client'
-
 export const metadata = {
   title: 'Forhaus | Reference',
   description:

@@ -1,3 +1,4 @@
+'use client'
 export const metadata = {
   title: 'Forhaus | Dokumentace skutečného provedení stavby',
   description:
@@ -34,8 +35,6 @@ export const metadata = {
     site: '@forhausuh'
   }
 }
-
-'use client'
 
 import Image from 'next/image'
 import styles from './page.module.css'

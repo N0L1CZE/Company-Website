@@ -1,3 +1,4 @@
+'use client'
 export const metadata = {
   title: 'Forhaus UH | Architektura, urbanismus a interiéry',
   description:
@@ -63,8 +64,6 @@ export const metadata = {
     site: '@forhausuh'
   }
 }
-
-'use client';
 
 import Image from 'next/image';
 import Link from 'next/link';

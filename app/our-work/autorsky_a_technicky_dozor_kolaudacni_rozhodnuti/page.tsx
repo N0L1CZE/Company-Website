@@ -1,3 +1,4 @@
+'use client'
 export const metadata = {
   title: 'Forhaus | Autorský a technický dozor, kolaudační rozhodnutí',
   description:
@@ -34,8 +35,6 @@ export const metadata = {
     site: '@forhausuh'
   }
 }
-
-'use client'
 
 import Image from 'next/image'
 import styles from './page.module.css'

@@ -1,4 +1,5 @@
 // app/passport/page.tsx
+'use client'
 export const metadata = {
   title: 'Forhaus | Projekt pro povolení stavby',
   description:
@@ -35,8 +36,6 @@ export const metadata = {
     site: '@forhausuh'
   }
 }
-
-'use client'
 
 import Image from 'next/image'
 import styles from './page.module.css'

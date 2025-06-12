@@ -1,3 +1,4 @@
+'use client'
 export const metadata = {
   title: 'Forhaus | Příprava projektů, projekční podklady',
   description:
