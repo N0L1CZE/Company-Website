@@ -44,7 +44,7 @@ export default async function AboutPage() {
               {kate.portfolioItems.map(item => (
                 <li key={item.id}>
                   <a
-                    href={item.pdfUrl}
+                    href={`/api/portfolio/${item.id}/download`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.link}
