@@ -1,3 +1,40 @@
+export const metadata = {
+  title: 'Forhaus | Autorský a technický dozor, kolaudační rozhodnutí',
+  description:
+    'Forhaus UH – poskytujeme autorský a technický dozor při realizaci staveb i kompletní servis kolaudačního řízení.',
+  applicationName: 'Forhaus',
+  authors: [{ name: 'Forhaus UH', url: 'https://forhaus-uh.cz' }],
+  robots: {
+    index: true,
+    follow: true
+  },
+  openGraph: {
+    title: 'Forhaus | Autorský a technický dozor, kolaudační rozhodnutí',
+    description:
+      'Detailní popis našich služeb autorského a technického dozoru stavby a kompletního kolaudačního procesu.',
+    url: 'https://forhaus-uh.cz/our-work/autorsky_a_technicky_dozor_kolaudacni_rozhodnuti',
+    siteName: 'Forhaus',
+    images: [
+      {
+        url: 'https://forhaus-uh.cz/5.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Autorský a technický dozor – Forhaus UH'
+      }
+    ],
+    locale: 'cs_CZ',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Forhaus | Autorský a technický dozor, kolaudační rozhodnutí',
+    description:
+      'Zajistíme autorský a technický dozor stavebního projektu a kompletní kolaudační řízení.',
+    images: ['https://forhaus-uh.cz/5.jpg'],
+    site: '@forhausuh'
+  }
+}
+
 'use client'
 
 import Image from 'next/image'

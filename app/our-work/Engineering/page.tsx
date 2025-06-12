@@ -1,4 +1,41 @@
 // app/engineering/page.tsx
+export const metadata = {
+  title: 'Forhaus | Návrh stavby – studie',
+  description:
+    'Forhaus UH – zpracováváme architektonické, urbanistické i interiérové studie staveb včetně průvodních zpráv a vizualizací.',
+  applicationName: 'Forhaus',
+  authors: [{ name: 'Forhaus UH', url: 'https://forhaus-uh.cz' }],
+  robots: {
+    index: true,
+    follow: true
+  },
+  openGraph: {
+    title: 'Forhaus | Návrh stavby – studie',
+    description:
+      'Detailní studie stavby od Forhaus UH: urbanistické, architektonické i interiérové návrhy s vizualizacemi a technickými podklady.',
+    url: 'https://forhaus-uh.cz/engineering',
+    siteName: 'Forhaus',
+    images: [
+      {
+        url: 'https://forhaus-uh.cz/engineer-cinnost.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Studie stavby – Forhaus UH'
+      }
+    ],
+    locale: 'cs_CZ',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Forhaus | Návrh stavby – studie',
+    description:
+      'Forhaus UH přináší kompletní studie staveb: urbanistické, architektonické i interiérové návrhy s vizualizacemi.',
+    images: ['https://forhaus-uh.cz/engineer-cinnost.jpg'],
+    site: '@forhausuh'
+  }
+}
+
 'use client'
 
 import Image from 'next/image'

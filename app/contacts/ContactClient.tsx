@@ -1,4 +1,41 @@
 // app/contacts/ContactClient.tsx
+export const metadata = {
+  title: 'Forhaus UH | Kontakt',
+  description:
+    'Kontaktujte Forhaus UH – architektonickou a projekční kancelář v Uherském Hradišti. Najdete nás na pobočce i online.',
+  applicationName: 'Forhaus UH',
+  authors: [{ name: 'Forhaus UH', url: 'https://forhaus-uh.cz' }],
+  robots: {
+    index: true,
+    follow: true
+  },
+  openGraph: {
+    title: 'Forhaus | Kontakt',
+    description:
+      'Potřebujete konzultaci nebo detaily o našich službách? Kontaktujte tým Forhaus UH.',
+    url: 'https://forhaus-uh.cz/contacts',
+    siteName: 'Forhaus UH',
+    images: [
+      {
+        url: 'https://forhaus-uh.cz/hero.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Forhaus UH – Kontakt'
+      }
+    ],
+    locale: 'cs_CZ',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Forhaus UH | Kontakt',
+    description:
+      'Kontaktujte Forhaus UH – architekti, urbanisté a projektanti v Uherském Hradišti.',
+    images: ['https://forhaus-uh.cz/hero.jpg'],
+    site: '@forhausuh'
+  }
+}
+
 'use client'
 
 import styles from './page.module.css'

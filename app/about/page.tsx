@@ -1,3 +1,40 @@
+export const metadata = {
+  title: 'Forhaus UH | O nás',
+  description:
+    'Forhaus UH – architektonická a projekční kancelář sdružující nezávislé projektanty. Seznamte se s naším týmem a službami.',
+  applicationName: 'Forhaus UH',
+  authors: [{ name: 'Forhaus UH', url: 'https://forhaus-uh.cz' }],
+  robots: {
+    index: true,
+    follow: true
+  },
+  openGraph: {
+    title: 'Forhaus | O nás',
+    description:
+      'Poznejte tým Forhaus UH: Ing. arch. Kateřina Harazimová (urbanismus, interiéry), Ing. Jan Rýpal (statika), Ing. Dana Jakšíková, Jaroslav Kužela.',
+    url: 'https://forhaus-uh.cz/about',
+    siteName: 'Forhaus UH',
+    images: [
+      {
+        url: 'https://forhaus-uh.cz/hero.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Moderní budova – Forhaus UH'
+      }
+    ],
+    locale: 'cs_CZ',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Forhaus UH | O nás',
+    description:
+      'Seznamte se s týmem Forhaus UH – odborníci na architekturu, urbanismus a inženýrské projekční služby.',
+    images: ['https://forhaus-uh.cz/hero.jpg'],
+    site: '@forhausuh'
+  }
+}
+
 import Image from 'next/image'
 import styles from './page.module.css'
 import { prisma } from '@/lib/prisma'

@@ -1,3 +1,40 @@
+export const metadata = {
+  title: 'Forhaus | Dokumentace skutečného provedení stavby',
+  description:
+    'Forhaus UH – dokumentace skutečného provedení stavby reflektující všechny změny po dokončení projektu.',
+  applicationName: 'Forhaus',
+  authors: [{ name: 'Forhaus UH', url: 'https://forhaus-uh.cz' }],
+  robots: {
+    index: true,
+    follow: true
+  },
+  openGraph: {
+    title: 'Forhaus | Dokumentace skutečného provedení stavby',
+    description:
+      'Seznamte se s naší dokumentací skutečného provedení stavby, která zachycuje finální podobu a všechny zapracované změny.',
+    url: 'https://forhaus-uh.cz/our-work/dokumentace_skutecneho_provedeni_stavby',
+    siteName: 'Forhaus',
+    images: [
+      {
+        url: 'https://forhaus-uh.cz/4.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Dokumentace skutečného provedení stavby – Forhaus UH'
+      }
+    ],
+    locale: 'cs_CZ',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Forhaus | Dokumentace skutečného provedení stavby',
+    description:
+      'Detailní dokumentace skutečného provedení stavby od Forhaus UH, zahrnující všechny po dokončení realizace provedené změny.',
+    images: ['https://forhaus-uh.cz/4.jpg'],
+    site: '@forhausuh'
+  }
+}
+
 'use client'
 
 import Image from 'next/image'

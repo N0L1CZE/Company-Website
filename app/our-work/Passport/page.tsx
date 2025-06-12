@@ -1,4 +1,41 @@
 // app/passport/page.tsx
+export const metadata = {
+  title: 'Forhaus | Projekt pro povolení stavby',
+  description:
+    'Forhaus UH – kompletní dokumentace pro povolení stavby v souladu s novým stavebním zákonem, včetně průvodní zprávy, technického zařízení budovy a nezbytných posudků.',
+  applicationName: 'Forhaus',
+  authors: [{ name: 'Forhaus UH', url: 'https://forhaus-uh.cz' }],
+  robots: {
+    index: true,
+    follow: true
+  },
+  openGraph: {
+    title: 'Forhaus | Projekt pro povolení stavby',
+    description:
+      'Detailní projektová dokumentace pro povolení stavby od Forhaus UH – situace, půdorysy, řezy, pohledy a inženýrské posudky.',
+    url: 'https://forhaus-uh.cz/passport',
+    siteName: 'Forhaus',
+    images: [
+      {
+        url: 'https://forhaus-uh.cz/2.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Projekt pro povolení stavby – Forhaus UH'
+      }
+    ],
+    locale: 'cs_CZ',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Forhaus | Projekt pro povolení stavby',
+    description:
+      'Forhaus UH nabízí projekt pro povolení stavby včetně všech technických a statických posudků.',
+    images: ['https://forhaus-uh.cz/2.jpg'],
+    site: '@forhausuh'
+  }
+}
+
 'use client'
 
 import Image from 'next/image'

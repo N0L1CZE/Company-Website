@@ -1,3 +1,40 @@
+export const metadata = {
+  title: 'Forhaus | Naše práce',
+  description:
+    'Naše práce – ukázky dokončených staveb Forhaus UH: centrální objekty nemocnice, podnikatelský inkubátor, výrobní areál a další.',
+  applicationName: 'Forhaus',
+  authors: [{ name: 'Forhaus UH', url: 'https://forhaus-uh.cz' }],
+  robots: {
+    index: true,
+    follow: true
+  },
+  openGraph: {
+    title: 'Forhaus | Naše práce',
+    description:
+      'Podívejte se na naše realizace – architektonické a projekční služby v praxi.',
+    url: 'https://forhaus-uh.cz/our-work',
+    siteName: 'Forhaus',
+    images: [
+      {
+        url: 'https://forhaus-uh.cz/proj1.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Centrální objekty Uherskohradištské nemocnice'
+      }
+    ],
+    locale: 'cs_CZ',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Forhaus | Naše práce',
+    description:
+      'Prohlédněte si dokončené projekty Forhaus UH – od studií až po realizace.',
+    images: ['https://forhaus-uh.cz/proj1.jpg'],
+    site: '@forhausuh'
+  }
+}
+
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './page.module.css'

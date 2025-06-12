@@ -1,3 +1,69 @@
+export const metadata = {
+  title: 'Forhaus UH | Architektura, urbanismus a interiéry',
+  description:
+    'Forhaus UH – specializovaná architektonická a projekční kancelář v Uherském Hradišti. Kompletní návrhy novostaveb, rekonstrukcí i interiérů.',
+  keywords: [
+    'Forhaus',
+    'architekt Uherské Hradiště',
+    'urbanismus',
+    'interiéry',
+    'projekční kancelář',
+    'novostavby',
+    'rekonstrukce',
+    'Uherské Hradiště',
+    'projektant',
+    'stavař',
+    'návrh domu',
+    'návrh rodinného domu',
+    'stavební inženýr',
+    'architektonický návrh',
+    'architektonická studie',
+    'studie interiéru',
+    'návrh interiéru',
+    'projektová dokumentace',
+    'statické posouzení',
+    'statik',
+    'rozpočet stavby',
+    'návrh zateplení',
+    'architektonická kancelář',
+    'projekční kancelář',
+    'urbanistická studie',
+    'architektonické řešení',
+  ],
+  applicationName: 'Forhaus UH',
+  authors: [{ name: 'Forhaus UH', url: 'https://forhaus-uh.cz' }],
+  robots: {
+    index: true,
+    follow: true,
+    nocache: true
+  },
+  openGraph: {
+    title: 'Forhaus UH | Architektura, urbanismus a interiéry',
+    description:
+      'Forhaus UH – architektonická a projekční kancelář poskytující kompletní služby od studie po realizaci.',
+    url: 'https://forhaus-uh.cz',
+    siteName: 'Forhaus UH',
+    images: [
+      {
+        url: 'https://forhaus-uh.cz/hero.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Moderní budova – Forhaus UH'
+      }
+    ],
+    locale: 'cs_CZ',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Forhaus | Architektura, urbanismus a interiéry',
+    description:
+      'Forhaus UH – architektonická a projekční kancelář poskytující komplexní návrhy novostaveb, rekonstrukcí a interiérů.',
+    images: ['https://forhaus-uh.cz/hero.jpg'],
+    site: '@forhausuh'
+  }
+}
+
 'use client';
 
 import Image from 'next/image';

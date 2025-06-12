@@ -1,3 +1,40 @@
+export const metadata = {
+  title: 'Forhaus | Příprava projektů, projekční podklady',
+  description:
+    'Forhaus UH – kompletní příprava projektů a projekční podklady: zaměření, průzkumy, hydrogeologie, pasportizace a další nezbytné studie.',
+  applicationName: 'Forhaus',
+  authors: [{ name: 'Forhaus UH', url: 'https://forhaus-uh.cz' }],
+  robots: {
+    index: true,
+    follow: true
+  },
+  openGraph: {
+    title: 'Forhaus | Příprava projektů, projekční podklady',
+    description:
+      'Zajišťujeme veškeré podklady pro projekty staveb: geometrické plány, průzkumy, pasportizace a další nezbytné dokumenty.',
+    url: 'https://forhaus-uh.cz/our-work/Projects',
+    siteName: 'Forhaus',
+    images: [
+      {
+        url: 'https://forhaus-uh.cz/projekt-cinnost-1.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Příprava projektu – Forhaus UH'
+      }
+    ],
+    locale: 'cs_CZ',
+    type: 'website'
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Forhaus | Příprava projektů, projekční podklady',
+    description:
+      'Forhaus UH – odborná příprava projektů a projekční podklady včetně zaměření, průzkumů a pasportizace.',
+    images: ['https://forhaus-uh.cz/projekt-cinnost-1.jpg'],
+    site: '@forhausuh'
+  }
+}
+
 import Image from 'next/image'
 import styles from './page.module.css'
 
