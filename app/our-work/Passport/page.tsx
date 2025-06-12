@@ -1,5 +1,3 @@
-// app/passport/page.tsx
-'use client'
 export const metadata = {
   title: 'Forhaus | Projekt pro povolení stavby',
   description:

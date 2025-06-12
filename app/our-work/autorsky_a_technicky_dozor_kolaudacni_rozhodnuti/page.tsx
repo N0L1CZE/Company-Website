@@ -1,4 +1,3 @@
-'use client'
 export const metadata = {
   title: 'Forhaus | Autorský a technický dozor, kolaudační rozhodnutí',
   description:

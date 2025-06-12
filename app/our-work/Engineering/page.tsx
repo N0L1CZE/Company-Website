@@ -1,5 +1,3 @@
-// app/engineering/page.tsx
-'use client'
 export const metadata = {
   title: 'Forhaus | Návrh stavby – studie',
   description:

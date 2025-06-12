@@ -1,4 +1,3 @@
-'use client'
 export const metadata = {
   title: 'Forhaus UH | Architektura, urbanismus a interiéry',
   description:
