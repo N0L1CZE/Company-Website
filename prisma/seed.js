@@ -30,10 +30,7 @@ async function main() {
 
   // 3) Persons
   const personNames = [
-    'Ing. Jan Rýpal',
     'Ing. arch. Kateřina Harazimová',
-    'Ing. Dana Jakšíková',
-    'Jaroslav Kužela',
   ]
   for (const name of personNames) {
     await prisma.person.upsert({
