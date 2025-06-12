@@ -32,10 +32,8 @@
   background-color: #fff;           /* bílý čtverec */
   width: 170px;                     /* nebo jiná požadovaná šířka */
   flex-shrink: 0;                   /* neškrcení šířky */
-
-  /* tyto tři řádky natáhnou box od vrchu po spodek <header> */
-  margin: -1.5rem 0;                /* posuneme nahoru i dolů o výši paddingu */
-  height: calc(100% + 3rem);        /* původních 100% (.headerContainer) + 2×1.5rem */
+  align-self: stretch;
+  border-radius: 0;
 }
 
 .logoLink img {
