@@ -25,13 +25,15 @@ export function Header() {
         {/* levá část: logo + navigace */}
         <div className={styles.headerLeft}>
           <Link href="/" onClick={handleHomeClick} className={styles.logoLink}>
-            <Image
-              src="/logo-white.png"
-              alt="Forhaus UH"
-              width={181}
-              height={102}
-              priority
-            />
+            <div className={styles.logoBg}>
+              <Image
+                src="/logo-white.png"
+                alt="Forhaus UH"
+                width={181}
+                height={102}
+                priority
+                   />
+            </div>
           </Link>
 
           {/* hamburger button */}
@@ -52,14 +54,12 @@ export function Header() {
             <Link href="/about" onClick={() => setMenuOpen(false)} className={styles.navLink}>
               O nás
             </Link>
-            <Link href="/references" onClick={() => setMenuOpen(false)} className={styles.navLink}>
-              Reference
-            </Link>
-            <div className={styles.navDropdown}>
             <Link href="/our-work" onClick={() => setMenuOpen(false)} className={styles.navLink}>
+              Naše služby
+            </Link>
+            <Link href="/references" onClick={() => setMenuOpen(false)} className={styles.navLink}>
               Naše práce
             </Link>
-            </div>
             <Link href="/portfolio" onClick={() => setMenuOpen(false)} className={styles.navLink}>
               Portfolio
             </Link>

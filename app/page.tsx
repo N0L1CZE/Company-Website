@@ -6,10 +6,10 @@ import styles from './page.module.css';
 
 export default function Home() {
   const services = [
+    { icon: '/icons/house-icon.svg', label: 'Architektonické návrhy' },
     { icon: '/icons/project.svg', label: 'Projektová činnost' },
     { icon: '/icons/passport.svg', label: 'Pasportizace objektů' },
     { icon: '/icons/engineering.svg', label: 'Inženýrská činnost' },
-    { icon: '/icons/satisfaction.svg', label: 'Zaručená spokojenost' },
   ];
 
   const projects = [
@@ -29,24 +29,26 @@ export default function Home() {
               <Image
                 src="/hero.jpg"
                 alt="Moderní budova"
-                width={550}
-                height={367}
-                layout="responsive"
+                fill
+                style={{ objectFit: 'cover' }}
                 priority
-              />
+                  />
             </div>
             <div className={styles.heroTextBoxes}>
               <div className={`${styles.heroBox} ${styles.heroBoxFirst}`}>
                 <h1 className={styles.heroTitle}>
-                  Projektová a inženýrská činnost pro pozemní stavby
+                  Architektura, urbanismus, interiéry
                 </h1>
+                <p className={styles.heroCaption}>
+                  projektová a inženýrská činnost ve výstavbě
+                </p>
               </div>
               <div className={`${styles.heroBox} ${styles.heroBoxSecond}`}>
                 <h2 className={styles.heroSubtitle}>
-                  Kompletní projektové služby novostaveb a rekonstrukcí
+                  Kompletní návrhy a projektové služby novostaveb, rekonstrukcí a interiérů
                 </h2>
                 <p className={styles.heroCaption}>
-                  (občanské stavby, rodinné domy, halové objekty, revitalizace bytových zděných a panelových domů, technologické instalace)
+                  stavby obytné, občanské, komerční, průmyslové, zdravotnické aj.
                 </p>
               </div>
             </div>
@@ -65,36 +67,6 @@ export default function Home() {
           </div>
         </section>
 
-    {/* ABOUT */}
-<section id="about" className={styles.aboutSection}>
-  <div className={styles.aboutInner}>
-    <h2 className={styles.aboutTitle}>Něco o nás</h2>
-    <div className={styles.aboutCards}>
-      {[
-        {
-          heading: "Profesionální tým",
-          text: "Naše práce je hlavně o lidech. Jsme sehraný tým odborníků s mnohaletými zkušenostmi v oblasti projektování a inženýrské činnosti. Každému projektu věnujeme maximální nasazení a individuální péči, protože dobře víme, že důvěra klientů je klíčem k úspěchu. Díky otevřené komunikaci, profesionalitě a spolehlivosti se nám daří vytvářet dlouhodobé vztahy, které přinášejí skvělé výsledky. S námi získáte nejen kvalitní službu, ale také partnera, na kterého se můžete spolehnout."
-        },
-        {
-          heading: "Kvalita na prvním místě",
-          text: "Kvalita je jádrem naší filozofie. V každém kroku od plánování přes projektovou dokumentaci až po realizaci dbáme na pečlivé zpracování každého detailu. Využíváme nejmodernější technologie a postupy, které nám umožňují efektivně řešit i velmi složité projekty. Naším cílem není pouze splnit vaše očekávání, ale překonat je a dodat vám řešení, které přinese dlouhodobou hodnotu a spokojenost. Když zvolíte nás, zvolíte kvalitu, která vydrží."
-        },
-        {
-          heading: "Spolehlivost a zkušenosti",
-          text: "Úspěšně realizované projekty a spokojení klienti jsou naší nejlepší vizitkou. Díky dlouholetým zkušenostem v projektové a inženýrské činnosti víme přesně, jak řešit výzvy, které se během projektů mohou objevit. Naši odborníci vám pomohou předcházet komplikacím a zajistí hladký průběh celého procesu od začátku až do konce. Naše stabilita, znalosti a spolehlivost jsou zárukou, že vaše projekty jsou vždy v těch nejlepších rukou. S námi získáte jistotu, že vše proběhne podle vašich představ."
-        },
-      ].map((card, i) => (
-        <div key={i} className={styles.aboutCard}>
-          <h3 className={styles.cardHeading}>{card.heading}</h3>
-          <p className={styles.cardText}>
-            {card.text}
-          </p>
-        </div>
-      ))}
-    </div>
-  </div>
-</section>
-
         {/* CTA */}
         <section className={styles.ctaSection}>
           <div className={styles.ctaInner}>
@@ -108,7 +80,7 @@ export default function Home() {
         {/* PROJECTS */}
         <section id="projects" className={styles.projectsSection}>
           <div className={styles.viewport}>
-            <h2 className={styles.projectsTitle}>Naše dokončené projekty</h2>
+            <h2 className={styles.projectsTitle}>Naše dokončené stavby</h2>
             <div className={styles.projectsBar}>
               <div className={styles.projectsBarInner}>
                 <div className={styles.projectList}>

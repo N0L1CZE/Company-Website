@@ -3,7 +3,7 @@
   top: 0;
   width: 100%;
   background-color: var(--color-aqua);
-  padding: 1.5rem 0;
+  padding: 1.05rem 0;
   box-shadow: inset 0 -1px 0 rgba(0,0,0,0.1);
   z-index: 1000;
   font-family: 'Saira', sans-serif;
@@ -12,7 +12,7 @@
 .headerContainer {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 2.5rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -26,7 +26,30 @@
 }
 
 .logoLink {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;           /* bílý čtverec */
+  width: 170px;                     /* nebo jiná požadovaná šířka */
+  flex-shrink: 0;                   /* neškrcení šířky */
+
+  /* tyto tři řádky natáhnou box od vrchu po spodek <header> */
+  margin: -1.5rem 0;                /* posuneme nahoru i dolů o výši paddingu */
+  height: calc(100% + 3rem);        /* původních 100% (.headerContainer) + 2×1.5rem */
+}
+
+.logoLink img {
+  max-height: 100%;         /* logo se hezky vejde s okrajem */
+  width: auto;
+}
+
+.logoBg {
+  background-color: #fff;
+  width: 130px;               /* square dimensions */
+  height: 113px;
+  display: flex;
+  align-items: center;
+  justify-content: center;      /* optional */
 }
 
 .nav {

@@ -47,10 +47,10 @@ export default function AboutPage() {
         <section className={styles.section}>
           <h2 className={styles.heading}>Historie a vývoj</h2>
           <p className={styles.text}>
-            Společnost ForHaus UH vznikla v březnu roku 2021
+            Volné sdružení Forhaus vzniklo v březnu roku 2021
           </p>
           <p className={styles.text}>
-            Dnes firma spolupracuje s řadou osvědčených externích partnerů a podílí se na desítkách
+            Dnes sdružení spolupracuje s řadou osvědčených externích partnerů a podílí se na desítkách
             projektů ročně po celé České republice.
           </p>
         </section>
