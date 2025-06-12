@@ -43,11 +43,9 @@ export default async function AboutPage() {
             <ul className={styles.list}>
               {kate.portfolioItems.map(item => (
                 <li key={item.id}>
-                  <a
-                    href={`/api/portfolio/${item.id}/download`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.link}
+                 <a
+                  href={`/api/portfolio/${item.id}/download`}
+                  download
                   >
                     {item.title}
                   </a>
