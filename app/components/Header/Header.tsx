@@ -60,9 +60,6 @@ export function Header() {
             <Link href="/references" onClick={() => setMenuOpen(false)} className={styles.navLink}>
               Naše práce
             </Link>
-            <Link href="/portfolio" onClick={() => setMenuOpen(false)} className={styles.navLink}>
-              Portfolio
-            </Link>
             <Link href="/contacts" onClick={() => setMenuOpen(false)} className={styles.navLink}>
               Kontakt
             </Link>

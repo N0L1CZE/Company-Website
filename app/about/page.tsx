@@ -1,7 +1,20 @@
 import Image from 'next/image'
 import styles from './page.module.css'
+import { prisma } from '@/lib/prisma'
 
-export default function AboutPage() {
+interface PortfolioItem {
+  id: number
+  title: string
+  pdfUrl: string
+}
+
+export default async function AboutPage() {
+  // prisma! – non-null assertion, abychom TS řekli, že klient je vždy inicializovaný
+  const kate = await prisma!.person.findUnique({
+    where: { name: 'Ing. arch. Kateřina Harazimová' },
+    include: { portfolioItems: true },
+  })
+
   return (
     <>
 
@@ -15,12 +28,50 @@ export default function AboutPage() {
             Máme za sebou desítky úspěšných realizací nejen v Uherském Hradišti.
             Zprostředkujeme i kontakty na dotační agentury a jiné specialisty.
             Nabízíme i dílčí činnosti jako samostatná statická posouzení, inženýrskou činnost, návrh zateplení objektů a projekty jako dokumentace bouracích prací.
-          </p>
-          <p className={styles.text}>Ing. arch. Kateřina Harazimová – architektura, urbanismus, interiéry<br />
-          Ing. Jan Rýpal – stavební projektant, statik<br />
-          Ing. Dana Jakšíková – stavební projektant<br />
-          Jaroslav Kužela – rozpočtář</p>
-        </section>
+          </p>          
+          </section>
+            {/* Sekce „Tým“ */}
+      <section className={styles.section}>
+        <h2 className={styles.heading}>Náš tým</h2>
+
+        {/* Kateřina */}
+        <div className={styles.teamMember}>
+          <h3 className={styles.teamName}>
+            Ing. arch. Kateřina Harazimová – architektura, urbanismus, interiéry
+          </h3>
+          {kate?.portfolioItems?.length ? (
+            <ul className={styles.list}>
+              {kate.portfolioItems.map(item => (
+                <li key={item.id}>
+                  <a
+                    href={item.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.link}
+                  >
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : null}
+        </div>
+
+        {/* Ostatní členové – bez portfolia */}
+        <div className={styles.teamMember}>
+          <h3 className={styles.teamName}>
+            Ing. Jan Rýpal – stavební projektant, statik
+          </h3>
+        </div>
+        <div className={styles.teamMember}>
+          <h3 className={styles.teamName}>
+            Ing. Dana Jakšíková – stavební projektant
+          </h3>
+        </div>
+        <div className={styles.teamMember}>
+          <h3 className={styles.teamName}>Jaroslav Kužela – rozpočtář</h3>
+        </div>
+      </section>
 
         {/* Sekce „Naše služby“ */}
         <section className={styles.section}>
@@ -28,7 +79,7 @@ export default function AboutPage() {
           <p className={styles.text}>
             <strong>Architektonické a projekční práce pozemních staveb, statika</strong>
           </p>
-          <ul className={styles.list}>
+          <ul className={styles.list1}>
             <li>Přípravy projektu,</li>
             <li>Návrh stavby - architektonická studie,</li>
             <li>Projekt pro povolení záměru,</li>

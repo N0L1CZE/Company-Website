@@ -84,6 +84,33 @@
   padding-left: 2rem;
 }
 
+.teamMember {
+  margin-bottom: 0.75rem;
+  padding-left: 8rem;
+}
+
+.teamName {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0rem;
+}
+
+.list1 {
+  list-style: disc inside;
+  margin: 0 0 1rem 7rem;
+}
+
+.list {
+  list-style: disc inside;
+  margin: 0 0 0rem -10rem;
+}
+
+.link {
+  color: var(--color-blue);
+  text-decoration: underline;
+}
+
+
 @media (max-width: 1024px) {
   .imagesBarInner {
     gap: 1rem;             
