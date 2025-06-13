@@ -640,7 +640,14 @@
     width: 90%;
     margin: 0 auto;
   }
+
+   .projectCaption {
+    white-space: normal;
+    /* případně upravte padding, aby to lépe sedělo na menší šířku */
+    padding: 0.5rem;
+  }
 }
+
 
 @media (min-width: 641px) and (max-width: 1024px) {
   /* HEADER */
