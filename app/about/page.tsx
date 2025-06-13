@@ -1,4 +1,3 @@
-/* page.tsx */
 import Image from 'next/image'
 import styles from './page.module.css'
 import { prisma } from '@/lib/prisma'
@@ -47,6 +46,17 @@ export default async function AboutPage() {
                   </a>
                 </li>
               ))}
+                <li>
+              <a
+                href="/docs/katerina-cv.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+                className={styles.link}
+              >
+                Hlavní portfolio
+              </a>
+            </li>
             </ul>
           ) : null}
 
