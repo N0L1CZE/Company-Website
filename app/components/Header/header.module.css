@@ -3,8 +3,7 @@
   top: 0;
   width: 100%;
   background-color: var(--color-aqua);
-  /* použití nové proměnné místo padding: 1.05rem 0; */
-  padding-block: var(--header-vertical-padding);
+  padding: 1.05rem 0;
   box-shadow: inset 0 -1px 0 rgba(0,0,0,0.1);
   z-index: 1000;
   font-family: 'Saira', sans-serif;
@@ -13,8 +12,7 @@
 .headerContainer {
   max-width: 1440px;
   margin: 0 auto;
-  /* zachová původní 4rem odsazení vlevo a vpravo */
-  padding-inline: 4rem;
+  padding: 0 4rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -28,21 +26,14 @@
 }
 
 .logoLink {
-  display: flex;               /* pro centerování Image */
+  display: flex;
   align-items: center;
   justify-content: center;
-
-  background-color: #fff;
-  width: 170px;                /* nastavte požadovanou šířku */
-  flex-shrink: 0;              /* nenechá box seškrcovat */
-
-  align-self: stretch;         /* natáhne box na 100 % výšky .headerContainer */
-  /* margin-block negativně vytáhne box ven z paddingu .header */
-  margin-block: calc(var(--header-vertical-padding) * -1);
-  /* výška boxu = obsah (.headerContainer) + oba paddingy */
-  height: calc(100% + var(--header-vertical-padding) * 2);
-
-  border-radius: 0;            /* žádné zaoblení rohů */
+  background-color: #fff;           /* bílý čtverec */
+  width: 170px;                     /* nebo jiná požadovaná šířka */
+  flex-shrink: 0;                   /* neškrcení šířky */
+  align-self: stretch;
+  border-radius: 0;
 }
 
 .logoLink img {
@@ -51,11 +42,12 @@
 }
 
 .logoBg {
-  width: 100%;
-  height: 100%;
+  background-color: #fff;
+  width: 130px;               /* square dimensions */
+  height: 113px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center;      /* optional */
 }
 
 .nav {
