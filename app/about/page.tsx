@@ -1,40 +1,4 @@
-export const metadata = {
-  title: 'Forhaus UH | O nás',
-  description:
-    'Forhaus UH – architektonická a projekční kancelář sdružující nezávislé projektanty. Seznamte se s naším týmem a službami.',
-  applicationName: 'Forhaus UH',
-  authors: [{ name: 'Forhaus UH', url: 'https://forhaus-uh.cz' }],
-  robots: {
-    index: true,
-    follow: true
-  },
-  openGraph: {
-    title: 'Forhaus | O nás',
-    description:
-      'Poznejte tým Forhaus UH: Ing. arch. Kateřina Harazimová (urbanismus, interiéry), Ing. Jan Rýpal (statika), Ing. Dana Jakšíková, Jaroslav Kužela.',
-    url: 'https://forhaus-uh.cz/about',
-    siteName: 'Forhaus UH',
-    images: [
-      {
-        url: 'https://forhaus-uh.cz/hero.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Moderní budova – Forhaus UH'
-      }
-    ],
-    locale: 'cs_CZ',
-    type: 'website'
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Forhaus UH | O nás',
-    description:
-      'Seznamte se s týmem Forhaus UH – odborníci na architekturu, urbanismus a inženýrské projekční služby.',
-    images: ['https://forhaus-uh.cz/hero.jpg'],
-    site: '@forhausuh'
-  }
-}
-
+/* page.tsx */
 import Image from 'next/image'
 import styles from './page.module.css'
 import { prisma } from '@/lib/prisma'
@@ -46,7 +10,6 @@ interface PortfolioItem {
 }
 
 export default async function AboutPage() {
-  // prisma! – non-null assertion, abychom TS řekli, že klient je vždy inicializovaný
   const kate = await prisma!.person.findUnique({
     where: { name: 'Ing. arch. Kateřina Harazimová' },
     include: { portfolioItems: true },
@@ -54,7 +17,6 @@ export default async function AboutPage() {
 
   return (
     <>
-
       <main className={styles.container}>
         {/* Sekce „O společnosti“ */}
         <section className={styles.section}>
@@ -62,51 +24,43 @@ export default async function AboutPage() {
           <p className={styles.text}>
             Forhaus je architektonická a projekční kancelář, která funguje jako volné sdružení samostatných projektantů, architekta a rozpočtáře.
             Jsme schopni zajistit návrh a projekční přípravu staveb, urbanistických celků a interiérů.
-            Máme za sebou desítky úspěšných realizací nejen v Uherském Hradišti.
+            Máme za sebou desítky úspěšných realizací nejen v Uherském Hradišti.
             Zprostředkujeme i kontakty na dotační agentury a jiné specialisty.
             Nabízíme i dílčí činnosti jako samostatná statická posouzení, inženýrskou činnost, návrh zateplení objektů a projekty jako dokumentace bouracích prací.
-          </p>          
-          </section>
-            {/* Sekce „Tým“ */}
-      <section className={styles.section}>
-        <h2 className={styles.heading}>Náš tým</h2>
+          </p>
+        </section>
 
-        {/* Kateřina */}
-        <div className={styles.teamMember}>
-          <h3 className={styles.teamName}>
-            Ing. arch. Kateřina Harazimová – architektura, urbanismus, interiéry
-          </h3>
+        {/* Sekce „Tým“ */}
+        <section className={styles.section}>
+          <h2 className={styles.heading}>Náš tým</h2>
+
+          {/* Kateřina */}
+          <p className={styles.text}>
+            <strong>Ing. arch. Kateřina Harazimová</strong> – architektura, urbanismus, interiéry
+          </p>
           {kate?.portfolioItems?.length ? (
             <ul className={styles.list}>
               {kate.portfolioItems.map(item => (
                 <li key={item.id}>
-                 <a
-                  href={`/api/portfolio/${item.id}/download`}
-                  download
-                  >
+                  <a href={`/api/portfolio/${item.id}/download`} download>
                     {item.title}
                   </a>
                 </li>
               ))}
             </ul>
           ) : null}
-        </div>
 
-        {/* Ostatní členové – bez portfolia */}
-        <div className={styles.teamMember}>
-          <h3 className={styles.teamName}>
-            Ing. Jan Rýpal – stavební projektant, statik
-          </h3>
-        </div>
-        <div className={styles.teamMember}>
-          <h3 className={styles.teamName}>
-            Ing. Dana Jakšíková – stavební projektant
-          </h3>
-        </div>
-        <div className={styles.teamMember}>
-          <h3 className={styles.teamName}>Jaroslav Kužela – rozpočtář</h3>
-        </div>
-      </section>
+          {/* Ostatní členové */}
+          <p className={styles.text}>
+            <strong>Ing. Jan Rýpal</strong> – stavební projektant, statik
+          </p>
+          <p className={styles.text}>
+            <strong>Ing. Dana Jakšíková</strong> – stavební projektant
+          </p>
+          <p className={styles.text}>
+            <strong>Jaroslav Kužela</strong> – rozpočtář
+          </p>
+        </section>
 
         {/* Sekce „Naše služby“ */}
         <section className={styles.section}>
@@ -114,7 +68,7 @@ export default async function AboutPage() {
           <p className={styles.text}>
             <strong>Architektonické a projekční práce pozemních staveb, statika</strong>
           </p>
-          <ul className={styles.list1}>
+          <ul className={styles.list}>
             <li>Přípravy projektu,</li>
             <li>Návrh stavby - architektonická studie,</li>
             <li>Projekt pro povolení záměru,</li>
@@ -123,9 +77,9 @@ export default async function AboutPage() {
             <li>Dokumentace skutečného provádění stavby</li>
           </ul>
           <p className={styles.text}>
-            Dále poskytujeme rozpočtování, inženýrskou činnost (vyjádření a stanoviska dotčených orgánů, správců sítí apod.) a veškerou komunikaci s úřady<br />
+            Dále poskytujeme rozpočtování, inženýrskou činnost (vyjádření a stanoviska dotčených orgánů, správců sítí apod.) a veškerou komunikaci s úřady.<br />
             V rámci přípravy projektu zpracujeme zaměření stávajících budov, dokumentaci bouracích prací, pasportizaci staveb.<br />
-            Součástí nabídky jsou i dílčí a specializované projekty jako návrh zateplení objektů, optimalizace vytápění budov nebo statické výpočty a posouzení. Kromě pozemních staveb nabízíme i urbanistické návrhy menšího rozsahu, návrhy interiéru a jsme schopni zprostředkovat návrhy sadových úprav, geodetické zaměření pozemku a staveb, průkaz energetické náročnosti budov, odnětí ze ZPF a veškeré průzkumy aj.
+            Součástí nabídky jsou i dílčí a specializované projekty jako návrh zateplení objektů, optimalizace vytápění budov nebo statické výpočty a posouzení. Kromě pozemních staveb nabízíme i urbanistické návrhy menšího rozsahu, návrhy interiéru a zprostředkování návrhů sadových úprav, geodetického zaměření pozemku a staveb, průkazu energetické náročnosti budov, odnětí ze ZPF a veškerých průzkumů.
           </p>
         </section>
 
@@ -133,11 +87,10 @@ export default async function AboutPage() {
         <section className={styles.section}>
           <h2 className={styles.heading}>Historie a vývoj</h2>
           <p className={styles.text}>
-            Volné sdružení Forhaus vzniklo v březnu roku 2021
+            Volné sdružení Forhaus vzniklo v březnu roku 2021.
           </p>
           <p className={styles.text}>
-            Dnes sdružení spolupracuje s řadou osvědčených externích partnerů a podílí se na desítkách
-            projektů ročně po celé České republice.
+            Dnes sdružení spolupracuje s řadou osvědčených externích partnerů a podílí se na desítkách projektů ročně po celé České republice.
           </p>
         </section>
 
@@ -145,19 +98,18 @@ export default async function AboutPage() {
         <section className={styles.imagesBar}>
           <div className={styles.imagesBarInner}>
             {['/img1.webp', '/img2.jpg', '/img3.jpg'].map((src, i) => (
-             <div key={i} className={styles.imageWrapper}>
-  <Image
-    src={src}
-    alt={`Naše práce ${i + 1}`}
-    fill
-    priority
-  />
-</div>
+              <div key={i} className={styles.imageWrapper}>
+                <Image
+                  src={src}
+                  alt={`Naše práce ${i + 1}`}
+                  fill
+                  priority
+                />
+              </div>
             ))}
           </div>
         </section>
       </main>
-
     </>
   )
 }

@@ -1,3 +1,4 @@
+/* page.module.css */
 .imagesBar {
   position: relative;
   left: 50%;
@@ -13,7 +14,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;            
+  gap: 1rem;
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 1rem;
@@ -24,8 +25,8 @@
   overflow: hidden;
   border-radius: 10px;
   aspect-ratio: 360 / 250;
-  flex: 0 1 450px;       
-  max-width: 100%;     
+  flex: 0 1 450px;
+  max-width: 100%;
 }
 
 .imageWrapper :global(img) {
@@ -71,8 +72,11 @@
   margin-bottom: 1rem;
 }
 
+/* Unified list style for all bulleted lists */
 .list {
-  padding-left: 12rem;
+  list-style: disc inside;
+  margin: 0 0 1rem 8rem;
+  padding-left: 0;
 }
 
 .list li {
@@ -95,25 +99,14 @@
   margin-bottom: 0rem;
 }
 
-.list1 {
-  list-style: disc inside;
-  margin: 0 0 1rem 7rem;
-}
-
-.list {
-  list-style: disc inside;
-  margin: 0 0 0rem -10rem;
-}
-
 .link {
   color: var(--color-blue);
   text-decoration: underline;
 }
 
-
 @media (max-width: 1024px) {
   .imagesBarInner {
-    gap: 1rem;             
+    gap: 1rem;
   }
   .imageWrapper {
     flex: 0 1 250px;
@@ -128,7 +121,7 @@
 
 @media (max-width: 768px) {
   .imageWrapper {
-    flex: 0 0 50%;        
+    flex: 0 0 50%;
     max-width: none;
   }
   .heading,
@@ -157,9 +150,6 @@
     margin-top: 0.25rem;
     margin-bottom: 1rem;
   }
-  .list {
-    padding-left: 1.5rem;
-  }
 }
 
 @media (max-width: 480px) {
@@ -171,8 +161,5 @@
   }
   .text {
     font-size: 14px;
-  }
-  .list {
-    padding-left: 1rem;
   }
 }
